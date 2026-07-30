@@ -1,0 +1,16 @@
+flowchart TD
+    A["Brand gives us ONE thing:\ntheir website link"] --> B["1. Read the website\n(figure out what kind of business it is)"]
+    B --> C["2. Auto-write a few\nbuyer questions"]
+    C --> D["3. Ask 2 AI chatbots\nthose questions"]
+    D --> E{"4. Does the brand\nget mentioned?"}
+    E -->|No| F["5. Explain why\n(plain words)"]
+    F --> G["6. Auto-write a clean\ninfo file about the brand"]
+    G --> H["7. Quick human check\n(one click: looks good?)"]
+    H --> I["8. Small tool serves this\nfile to AI agents"]
+    I --> J["9. Ask the SAME question\nagain, live"]
+    J --> K["Judges see the AI's answer\nchange in front of them"]
+    E -->|Yes| L["Brand already visible -\nshow the good score instead"]
+
+    style A fill:#e8f4fd
+    style K fill:#d4f7d4
+    style L fill:#d4f7d4

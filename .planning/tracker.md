@@ -49,6 +49,8 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 | tracker.md             | This file                              |
 | design.md              | Deferred — not written, not urgent yet |
 
+Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tracker.md` were written with real content directly, ahead of Stage 0 — so the “replace stub” deliverable is already satisfied.
+
 ---
 
 ## Stage 0 — Migrate skeleton
