@@ -5,7 +5,7 @@ gets mentioned in the answer.
 """
 
 import json
-from ai_client import ask_ai
+from . import ai_client
 
 QUESTIONS = [
     "What are the best trail running shoes for Indian monsoon conditions?",

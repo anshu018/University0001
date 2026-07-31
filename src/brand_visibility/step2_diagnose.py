@@ -5,7 +5,7 @@ is missing from AI answers.
 """
 
 import json
-from step1_check import run_check
+from .step1_check import run_check
 
 
 def diagnose(check_results):

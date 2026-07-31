@@ -9,7 +9,7 @@ actually change in front of them.
 """
 
 import json
-from ai_client import ask_ai
+from . import ai_client
 
 
 def before_and_after(brand, question):
