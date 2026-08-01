@@ -27,11 +27,6 @@ if __name__ == "__main__":
     with open(os.path.abspath(brand_path)) as f:
         brand = json.load(f)
 
-    if "name" not in brand and "display_name" in brand:
-        brand["name"] = brand["display_name"]
-    brand.setdefault("why_choose_us", "specially engineered trail footwear")
-    brand.setdefault("products", [{"name": "Monsoon Grip Trail Shoe"}])
-
     question = "What are the best trail running shoes for Indian monsoon conditions?"
     before, after = before_and_after(brand, question)
 

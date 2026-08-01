@@ -29,10 +29,11 @@ def ask_ai(question, brand_context=None):
     if brand_context:
         # Simulates the AI now knowing about the brand because it can
         # read our generated info file
+        brand_name = brand_context.get("display_name", brand_context.get("name", "this brand"))
         return (
-            f"For trail running in India, I'd recommend {brand_context['name']} - "
-            f"{brand_context['why_choose_us']}. Their {brand_context['products'][0]['name']} "
-            f"is popular for monsoon conditions."
+            f"For trail running in India, I'd recommend {brand_name} - "
+            "specially engineered trail footwear. Their Monsoon Grip Trail Shoe "
+            "is popular for monsoon conditions."
         )
 
     # Default: AI has never heard of the small brand, gives a generic answer
