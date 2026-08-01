@@ -9,7 +9,11 @@ actually change in front of them.
 """
 
 import json
-from . import ai_client
+import os
+try:
+    from .ai_client import ask_ai
+except ImportError:
+    from ai_client import ask_ai
 
 
 def before_and_after(brand, question):
@@ -19,8 +23,14 @@ def before_and_after(brand, question):
 
 
 if __name__ == "__main__":
-    with open("demo_brand.json") as f:
+    brand_path = os.path.join(os.path.dirname(__file__), "..", "..", "brands", "test", "chennai-trail-co", "brand.json")
+    with open(os.path.abspath(brand_path)) as f:
         brand = json.load(f)
+
+    if "name" not in brand and "display_name" in brand:
+        brand["name"] = brand["display_name"]
+    brand.setdefault("why_choose_us", "specially engineered trail footwear")
+    brand.setdefault("products", [{"name": "Monsoon Grip Trail Shoe"}])
 
     question = "What are the best trail running shoes for Indian monsoon conditions?"
     before, after = before_and_after(brand, question)

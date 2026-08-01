@@ -5,7 +5,11 @@ gets mentioned in the answer.
 """
 
 import json
-from . import ai_client
+import os
+try:
+    from .ai_client import ask_ai
+except ImportError:
+    from ai_client import ask_ai
 
 QUESTIONS = [
     "What are the best trail running shoes for Indian monsoon conditions?",
@@ -23,10 +27,11 @@ def run_check(brand_name):
 
 
 if __name__ == "__main__":
-    with open("demo_brand.json") as f:
+    brand_path = os.path.join(os.path.dirname(__file__), "..", "..", "brands", "test", "chennai-trail-co", "brand.json")
+    with open(os.path.abspath(brand_path)) as f:
         brand = json.load(f)
 
-    results = run_check(brand["name"])
+    results = run_check(brand["display_name"])
     for r in results:
         status = "MENTIONED" if r["mentioned"] else "NOT mentioned"
         print(f"\nQ: {r['question']}\nA: {r['answer']}\nStatus: {status}")

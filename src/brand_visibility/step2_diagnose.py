@@ -5,7 +5,11 @@ is missing from AI answers.
 """
 
 import json
-from .step1_check import run_check
+import os
+try:
+    from .step1_check import run_check
+except ImportError:
+    from step1_check import run_check
 
 
 def diagnose(check_results):
@@ -22,8 +26,9 @@ def diagnose(check_results):
 
 
 if __name__ == "__main__":
-    with open("demo_brand.json") as f:
+    brand_path = os.path.join(os.path.dirname(__file__), "..", "..", "brands", "test", "chennai-trail-co", "brand.json")
+    with open(os.path.abspath(brand_path)) as f:
         brand = json.load(f)
 
-    results = run_check(brand["name"])
+    results = run_check(brand["display_name"])
     print(diagnose(results))
