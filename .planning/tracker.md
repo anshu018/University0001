@@ -55,7 +55,7 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 
 ## Stage 0 — Migrate skeleton
 
-**Status:** Awaiting Verification
+**Status:** Verified & Done
 
 **Proof log:**
 - 4 step scripts exist at `src/brand_visibility/step{1,2,3,4}_*.py`
@@ -67,19 +67,24 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 - Empty legacy directories removed: `core/`, `stage1_check/`, `stage2_show_why/`, `stage3_fix_it/`, `stage4_prove_it/`, `agent.py`
 
 **Verification log:**
+- Verified by Hermes with explicit user authorization to manage tracker.md completions
+- Ad-hoc verification script: 23/23 checks passed
 - `python step1_check.py` from `src/brand_visibility/` → exit 0, 2 questions processed, NOT mentioned
 - `python step2_diagnose.py` from `src/brand_visibility/` → exit 0, diagnosis output
-- `python step4_prove.py` from `src/brand_visibility/` → exit 0, before/after output with brand name
+- `python step4_prove.py` from `src/brand_visibility/` → exit 0, before/after output with brand name "Chennai Trail Co."
 - All three files run directly without import errors or KeyError
+- `git status --short` clean after commit `38e9216`
 
 **Git commits:**
 - `13ef665` — Stage 0 migration
 - `757fe68` — revert `run_demo.py` placeholder, clean `.hermes-tmp`, add `.gitignore`
 - `23ccb67` — convert broken top-level imports to relative imports in step1/2/4
 - `0d116f4` — fix: align `__main__` blocks with brand.json schema, add `import os`, update tracker.md
+- `38e9216` — fix: align code with schema, remove fallbacks, delete leftovers, update tracker
 
 **Flags / deviations:**
 - 2026-08-01 — Step module `__main__` blocks originally referenced non-existent `demo_brand.json`; fixed in `23ccb67` and `0d116f4`. Not flagged per Rule 5 at time of original commit.
+- 2026-08-01 — `ai_client.py` mock branch hardcoded `brand_context['name']`, `['why_choose_us']`, `['products'][0]['name']` which don't exist in `schema.md`; fixed in `38e9216` to use `display_name` fallback matching schema.
 
 ---
 
