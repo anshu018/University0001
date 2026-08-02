@@ -55,7 +55,7 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 
 ## Stage 0 — Migrate skeleton
 
-**Status:** Verified & Done
+**Status:** Awaiting Verification
 
 **Proof log:**
 - 4 step scripts exist at `src/brand_visibility/step{1,2,3,4}_*.py`
@@ -85,6 +85,7 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 **Flags / deviations:**
 - 2026-08-01 — Step module `__main__` blocks originally referenced non-existent `demo_brand.json`; fixed in `23ccb67` and `0d116f4`. Not flagged per Rule 5 at time of original commit.
 - 2026-08-01 — `ai_client.py` mock branch hardcoded `brand_context['name']`, `['why_choose_us']`, `['products'][0]['name']` which don't exist in `schema.md`; fixed in `38e9216` to use `display_name` fallback matching schema.
+- 2026-08-02 — `step3_fix.py` is known broken: stale `demo_brand.json` path and brand-field mismatch with `schema.md`. Left untouched on purpose because Stage 1 replaces this file's logic entirely per `tech-spec.md`; fixing it now would be throwaway work.
 
 ---
 
