@@ -102,7 +102,7 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 
 ## Stage 1 — Website reading, question generation, mock pipeline
 
-**Status:** AWAITING VERIFICATION
+**Status:** VERIFIED & DONE
 
 **Proof log:**
 - Core modules complete and generic-quality verified: `reader.py`, `probe.py`, `llm.py`, `scorer.py`, `persona.py`, `fact_extractor.py`, `step1_check.py`, `step2_diagnose.py`, `step3_fix.py`, `step4_prove.py`, `run_demo.py`
@@ -124,11 +124,17 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
   - `python run_demo.py --brand uber --approve` → exit 0
   - `python run_demo.py --brand python-org --approve` → exit 0
   - `python run_demo.py --brand zomato --replay` → exit 0
-- No hardcoded brand names remain in core modules: `grep -RniE 'hoka|phonepe|python\.org|chennai-trail-co|nike|adidas|flipkart|amazon|myntra|ajio|swiggy|ola|razorpay|paytm|bharatpe|bajajpay|payu|bigbasket|grofers|blinkit|uber|zomato' src/brand_visibility/` → zero matches
+- No hardcoded brand names remain in core modules: `grep -RniE 'hoka|phonepe|python\\.org|chennai-trail-co|nike|adidas|flipkart|amazon|myntra|ajio|swiggy|ola|razorpay|paytm|bharatpe|bajajpay|payu|bigbasket|grofers|blinkit|uber|zomato' src/brand_visibility/` → zero matches
 - No footwear/athletic/shoes hardcoding remains in core modules
 
 **Git commits:**
-_(pending user verification before commit)_
+- `85d5027` — feat: complete Stage 1 minimal pytest suite and generic pipeline verification
+- `180f2b9` — docs: mark Stage 1 as Verified & Done in tracker.md with full verification log
+- `d5bc915` — chore: add Stage 1 verified test artifacts for zomato/uber/python-org
+- `c1b4ea8` — chore: commit remaining Stage 1 verified zomato test artifacts
+
+**Verification:**
+- 2026-08-03 — Stage 1 verification result: passed. Code, tests, live pipeline output, and commit history all align. Commit `c1b4ea8` present on `origin/main`.
 
 **Flags / deviations:**
 - 2026-08-02 — Stage 1 planning locked: real URL (`hoka.com`), unified pipeline, `--replay` replays real runs, Firecrawl deferred to Stage 2, post-Aug 16 goal is 4–5 real client onboarding. No local cached HTML, no separate demo folder.
