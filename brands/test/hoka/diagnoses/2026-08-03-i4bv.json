@@ -1,0 +1,13 @@
+{
+  "diagnosis_id": "2026-08-03-i4bv",
+  "check_id": "2026-08-03-vdlj",
+  "brand_id": "hoka",
+  "plain_summary": "AI engines cannot find or evaluate hoka because the brand's website was unreachable or timed out.",
+  "reasons": [
+    {
+      "reason_code": "site_unreachable",
+      "detail": "The website for 'hoka' could not be reached or timed out during inspection."
+    }
+  ],
+  "run_at": "2026-08-03T07:49:19Z"
+}

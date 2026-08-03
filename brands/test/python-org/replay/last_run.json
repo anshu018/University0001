@@ -1,0 +1,110 @@
+{
+  "brand_id": "python-org",
+  "brand_type": null,
+  "replay": false,
+  "run_id": "run-20260803-105352",
+  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\python-org\\logs\\run-20260803-105352.log",
+  "step1": {
+    "check_id": "2026-08-03-o7v8",
+    "brand_id": "python-org",
+    "status": "completed",
+    "error_detail": null,
+    "business_type_detected": "software & technology solutions",
+    "questions": [
+      {
+        "question_id": "q1",
+        "question_text": "What is the best Python in software & technology solutions?",
+        "engine_results": [
+          {
+            "engine": "engine_a",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "I don't have specific brand recommendations for 'What is the best Python in software & technology solutions?'. I suggest searching for established cat..."
+          },
+          {
+            "engine": "engine_b",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "Popular market options recommended for 'What is the best Python in software & technology solutions?'."
+          }
+        ]
+      },
+      {
+        "question_id": "q2",
+        "question_text": "What is the best load in software & technology solutions?",
+        "engine_results": [
+          {
+            "engine": "engine_a",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "For 'What is the best load in software & technology solutions?', look for reputable options with verified ratings and transparent product specificatio..."
+          },
+          {
+            "engine": "engine_b",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "Popular market options recommended for 'What is the best load in software & technology solutions?'."
+          }
+        ]
+      }
+    ]
+  },
+  "step2": {
+    "diagnosis_id": "2026-08-03-wnre",
+    "check_id": "2026-08-03-o7v8",
+    "brand_id": "python-org",
+    "plain_summary": "AI engines do not mention python-org in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
+    "reasons": [
+      {
+        "reason_code": "low_visibility",
+        "detail": "The website has real content, but AI engines still do not mention this brand in response to buyer-intent questions."
+      }
+    ]
+  },
+  "step3": {
+    "brand_id": "python-org",
+    "display_name": "Python.org",
+    "website_url": "https://www.python.org/",
+    "generated_at": "2026-08-03T10:53:52.822221+00:00",
+    "approved": true,
+    "approved_by": "Anshu",
+    "approved_at": "2026-08-03T10:53:52.823227+00:00",
+    "content_file": "brand-info.llms.txt",
+    "facts": [
+      {
+        "fact": "Official Website Title: Welcome to Python.org",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "The official home of the Python Programming Language",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: Get Started",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: Latest News",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: Upcoming Events",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: Success Stories",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: Use Python for\u2026",
+        "source": "https://www.python.org/"
+      },
+      {
+        "fact": "Featured Topic: >>>Python Software Foundation",
+        "source": "https://www.python.org/"
+      }
+    ]
+  },
+  "step4": {
+    "brand_id": "python-org",
+    "question": "What are the key facts about Python.org from its official website?",
+    "before": "For 'What are the key facts about Python.org from its official website?', look for reputable options with verified ratings and transparent product specifications.",
+    "after": "Regarding 'What are the key facts about Python.org from its official website?', Python.org is worth checking out \u2014 verified site data indicates: Official Website Title: Welcome to Python.org (Website: https://www.python.org/)"
+  }
+}

@@ -1,36 +1,59 @@
 """
-STEP 4: PROVE IT WORKED
-Run the same AI question twice:
-  - once WITHOUT our generated info file (the "before")
-  - once WITH it (the "after")
+Step 4: PROVE IT
+Minimal Stage 1 proof script per plan boundary.
 
-This is the live demo moment - the judges see the AI's answer
-actually change in front of them.
+- Without approved brand facts: baseline mock answer
+- With approved brand facts: richer answer showing brand access
+
+In Stage 1 this is intentionally minimal. Full before/after demo agent
+with MCP tools belongs to Stage 3.
 """
 
-import json
 import os
-try:
-    from .ai_client import ask_ai
-except ImportError:
-    from ai_client import ask_ai
+import sys
+from pathlib import Path
+
+# Ensure project root and src directory are in sys.path for direct execution
+root_dir = Path(__file__).resolve().parent.parent.parent
+if str(root_dir) not in sys.path:
+    sys.path.insert(0, str(root_dir))
+src_dir = Path(__file__).resolve().parent.parent
+if str(src_dir) not in sys.path:
+    sys.path.insert(0, str(src_dir))
+
+from brand_visibility.ai_client import ask_ai, get_brand_context
 
 
-def before_and_after(brand, question):
+def run_prove(brand_id: str, brand_type: str = None, question: str | None = None) -> dict:
+    brand_context = get_brand_context(brand_id, brand_type=brand_type)
+    display_name = brand_context.get("display_name", brand_id)
+    website_url = brand_context.get("website_url", "")
+
+    if question is None:
+        question = f"What are the key facts about {display_name} from its official website?"
+
     before = ask_ai(question)
-    after = ask_ai(question, brand_context=brand)
-    return before, after
+    after = ask_ai(question, brand_context=brand_context)
+
+    print(f"Question: {question}\n")
+    print("WITHOUT brand access (before):")
+    print(before)
+    print("\nWITH brand access (after):")
+    print(after)
+
+    return {
+        "brand_id": brand_id,
+        "question": question,
+        "before": before,
+        "after": after,
+    }
 
 
 if __name__ == "__main__":
-    brand_path = os.path.join(os.path.dirname(__file__), "..", "..", "brands", "test", "chennai-trail-co", "brand.json")
-    with open(os.path.abspath(brand_path)) as f:
-        brand = json.load(f)
-
-    question = "What are the best trail running shoes for Indian monsoon conditions?"
-    before, after = before_and_after(brand, question)
-
-    print("BEFORE (AI has no info about the brand):")
-    print(before)
-    print("\nAFTER (AI can read our generated info file):")
-    print(after)
+    import os as _os
+    brand_id = _os.environ.get("BRAND_ID")
+    brand_type = _os.environ.get("BRAND_TYPE")
+    if not brand_id:
+        print("Set BRAND_ID to run directly.", file=sys.stderr)
+        raise SystemExit(2)
+    run_prove(brand_id, brand_type=brand_type)

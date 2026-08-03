@@ -1,0 +1,16 @@
+{
+  "brand_id": "zomato",
+  "display_name": "Zomato",
+  "website_url": "https://www.zomato.com/",
+  "generated_at": "2026-08-03T10:53:07.056220+00:00",
+  "approved": true,
+  "approved_by": "Anshu",
+  "approved_at": "2026-08-03T10:53:07.056220+00:00",
+  "content_file": "brand-info.llms.txt",
+  "facts": [
+    {
+      "fact": "Official Website Title: Zomato Food Delivery",
+      "source": "https://www.zomato.com/"
+    }
+  ]
+}

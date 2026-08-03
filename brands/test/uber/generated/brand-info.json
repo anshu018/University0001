@@ -1,0 +1,44 @@
+{
+  "brand_id": "uber",
+  "display_name": "Uber",
+  "website_url": "https://www.uber.com/",
+  "generated_at": "2026-08-03T10:53:35.189786+00:00",
+  "approved": true,
+  "approved_by": "Anshu",
+  "approved_at": "2026-08-03T10:53:35.192295+00:00",
+  "content_file": "brand-info.llms.txt",
+  "facts": [
+    {
+      "fact": "Official Website Title: Earn Money by Driving or Get a Ride Now | Uber India",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Get a ride in minutes. Or become a driver and earn money on your schedule. Uber is finding you better ways to move, work, and succeed in India.",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: Go anywhere with Uber",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: Explore what you can do with Uber",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: Log in to see your account details",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: Planning your next getaway?",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: Drive when you want, make what you need",
+      "source": "https://www.uber.com/"
+    },
+    {
+      "fact": "Featured Topic: The Uber you know, reimagined for business",
+      "source": "https://www.uber.com/"
+    }
+  ]
+}

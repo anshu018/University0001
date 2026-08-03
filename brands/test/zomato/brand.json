@@ -1,0 +1,11 @@
+{
+  "brand_id": "zomato",
+  "display_name": "Zomato",
+  "website_url": "https://www.zomato.com/",
+  "brand_type": "test",
+  "consent_given": true,
+  "category": "food & restaurant services",
+  "competitors": ["Swiggy", "Uber Eats", "DoorDash"],
+  "target_audience": "people looking for restaurant delivery and dining out",
+  "notes": "Real test brand for food/restaurant vertical verification"
+}

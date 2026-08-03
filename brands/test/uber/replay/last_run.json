@@ -1,0 +1,110 @@
+{
+  "brand_id": "uber",
+  "brand_type": null,
+  "replay": false,
+  "run_id": "run-20260803-105333",
+  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\uber\\logs\\run-20260803-105333.log",
+  "step1": {
+    "check_id": "2026-08-03-ksvf",
+    "brand_id": "uber",
+    "status": "completed",
+    "error_detail": null,
+    "business_type_detected": "software & technology solutions",
+    "questions": [
+      {
+        "question_id": "q1",
+        "question_text": "What is the best Earn in software & technology solutions?",
+        "engine_results": [
+          {
+            "engine": "engine_a",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "For 'What is the best Earn in software & technology solutions?', look for reputable options with verified ratings and transparent product specificatio..."
+          },
+          {
+            "engine": "engine_b",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "Popular market options recommended for 'What is the best Earn in software & technology solutions?'."
+          }
+        ]
+      },
+      {
+        "question_id": "q2",
+        "question_text": "What is the best Money in software & technology solutions?",
+        "engine_results": [
+          {
+            "engine": "engine_a",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "I don't have specific brand recommendations for 'What is the best Money in software & technology solutions?'. I suggest searching for established cate..."
+          },
+          {
+            "engine": "engine_b",
+            "mention_status": "not_mentioned",
+            "response_excerpt": "Popular market options recommended for 'What is the best Money in software & technology solutions?'."
+          }
+        ]
+      }
+    ]
+  },
+  "step2": {
+    "diagnosis_id": "2026-08-03-8oqg",
+    "check_id": "2026-08-03-ksvf",
+    "brand_id": "uber",
+    "plain_summary": "AI engines do not mention uber in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
+    "reasons": [
+      {
+        "reason_code": "low_visibility",
+        "detail": "The website has real content, but AI engines still do not mention this brand in response to buyer-intent questions."
+      }
+    ]
+  },
+  "step3": {
+    "brand_id": "uber",
+    "display_name": "Uber",
+    "website_url": "https://www.uber.com/",
+    "generated_at": "2026-08-03T10:53:35.189786+00:00",
+    "approved": true,
+    "approved_by": "Anshu",
+    "approved_at": "2026-08-03T10:53:35.192295+00:00",
+    "content_file": "brand-info.llms.txt",
+    "facts": [
+      {
+        "fact": "Official Website Title: Earn Money by Driving or Get a Ride Now | Uber India",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Get a ride in minutes. Or become a driver and earn money on your schedule. Uber is finding you better ways to move, work, and succeed in India.",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: Go anywhere with Uber",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: Explore what you can do with Uber",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: Log in to see your account details",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: Planning your next getaway?",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: Drive when you want, make what you need",
+        "source": "https://www.uber.com/"
+      },
+      {
+        "fact": "Featured Topic: The Uber you know, reimagined for business",
+        "source": "https://www.uber.com/"
+      }
+    ]
+  },
+  "step4": {
+    "brand_id": "uber",
+    "question": "What are the key facts about Uber from its official website?",
+    "before": "For 'What are the key facts about Uber from its official website?', look for reputable options with verified ratings and transparent product specifications.",
+    "after": "Regarding 'What are the key facts about Uber from its official website?', Uber is worth checking out \u2014 verified site data indicates: Official Website Title: Earn Money by Driving or Get a Ride Now | Uber India (Website: https://www.uber.com/)"
+  }
+}

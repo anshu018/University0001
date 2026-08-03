@@ -1,0 +1,44 @@
+{
+  "brand_id": "python-org",
+  "display_name": "Python.org",
+  "website_url": "https://www.python.org/",
+  "generated_at": "2026-08-03T10:53:52.822221+00:00",
+  "approved": true,
+  "approved_by": "Anshu",
+  "approved_at": "2026-08-03T10:53:52.823227+00:00",
+  "content_file": "brand-info.llms.txt",
+  "facts": [
+    {
+      "fact": "Official Website Title: Welcome to Python.org",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "The official home of the Python Programming Language",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: Get Started",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: Latest News",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: Upcoming Events",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: Success Stories",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: Use Python for\u2026",
+      "source": "https://www.python.org/"
+    },
+    {
+      "fact": "Featured Topic: >>>Python Software Foundation",
+      "source": "https://www.python.org/"
+    }
+  ]
+}

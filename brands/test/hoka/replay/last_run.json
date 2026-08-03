@@ -1,0 +1,65 @@
+{
+  "brand_id": "hoka",
+  "brand_type": null,
+  "replay": false,
+  "run_id": "run-20260802-232411",
+  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\hoka\\logs\\run-20260802-232411.log",
+  "step1": {
+    "check_id": "2026-08-02-896q",
+    "brand_id": "hoka",
+    "status": "error",
+    "error_detail": "site_unreachable",
+    "business_type_detected": "unknown",
+    "questions": []
+  },
+  "step2": {
+    "diagnosis_id": "2026-08-02-adl7",
+    "check_id": "2026-08-02-896q",
+    "brand_id": "hoka",
+    "plain_summary": "AI engines cannot find or evaluate hoka because the brand's website was unreachable or timed out.",
+    "reasons": [
+      {
+        "reason_code": "site_unreachable",
+        "detail": "The website for 'hoka' could not be reached or timed out during inspection."
+      }
+    ]
+  },
+  "step3": {
+    "brand_id": "hoka",
+    "display_name": "Hoka",
+    "website_url": "https://www.hoka.com/en-us/",
+    "generated_at": "2026-08-02T23:24:15.159382+00:00",
+    "approved": true,
+    "approved_by": "Anshu",
+    "approved_at": "2026-08-02T23:24:15.160867+00:00",
+    "content_file": "brand-info.llms.txt",
+    "facts": [
+      {
+        "fact": "Official Website Title: Sites-HOKA-US-Site",
+        "source": "https://www.hoka.com/en-us/"
+      },
+      {
+        "fact": "Featured Topic: Explore HOKA",
+        "source": "https://www.hoka.com/en-us/"
+      },
+      {
+        "fact": "The page you have requested does not exist or is no longer available.",
+        "source": "https://www.hoka.com/en-us/"
+      },
+      {
+        "fact": "If you feel you have reached this page by mistake, please verify the web address and try again.",
+        "source": "https://www.hoka.com/en-us/"
+      },
+      {
+        "fact": "You may also use the search box below to help find what you were looking for:",
+        "source": "https://www.hoka.com/en-us/"
+      }
+    ]
+  },
+  "step4": {
+    "brand_id": "hoka",
+    "question": "What are the key facts about Hoka from its official website?",
+    "before": "I don't have detailed information on specific emerging brands for 'What are the key facts about Hoka from its official website?'. Standard market options apply.",
+    "after": "Regarding 'What are the key facts about Hoka from its official website?', Hoka is worth checking out \u2014 verified site data indicates: Official Website Title: Sites-HOKA-US-Site (Website: https://www.hoka.com/en-us/)"
+  }
+}

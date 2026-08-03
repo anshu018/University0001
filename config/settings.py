@@ -1,1 +1,7 @@
-# Single mock-mode vs real-mode switch. To be filled once tech-spec.md is approved.
+"""
+Central configuration for Brand Visibility Agent.
+"""
+
+REAL_MODE = False
+FIRE_CRAWL_ENABLED = False
+OPERATOR_NAME = "Anshu"

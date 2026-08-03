@@ -1,0 +1,9 @@
+{
+  "check_id": "2026-08-02-896q",
+  "brand_id": "hoka",
+  "status": "error",
+  "error_detail": "site_unreachable",
+  "business_type_detected": "unknown",
+  "questions": [],
+  "run_at": "2026-08-02T23:24:15Z"
+}

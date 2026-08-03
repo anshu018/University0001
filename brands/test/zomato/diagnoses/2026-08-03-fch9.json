@@ -1,0 +1,13 @@
+{
+  "diagnosis_id": "2026-08-03-fch9",
+  "check_id": "2026-08-03-vqx8",
+  "brand_id": "zomato",
+  "plain_summary": "AI engines do not mention zomato in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
+  "reasons": [
+    {
+      "reason_code": "low_visibility",
+      "detail": "The website has real content, but AI engines still do not mention this brand in response to buyer-intent questions."
+    }
+  ],
+  "run_at": "2026-08-03T07:55:49Z"
+}

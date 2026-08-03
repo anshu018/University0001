@@ -1,0 +1,42 @@
+{
+  "check_id": "2026-08-03-j4gu",
+  "brand_id": "zomato",
+  "status": "completed",
+  "error_detail": null,
+  "business_type_detected": "products and services provider",
+  "questions": [
+    {
+      "question_id": "q1",
+      "question_text": "best options for Zomato in products and services provider",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "mentioned_accurate",
+          "response_excerpt": "For 'best options for Zomato in products and services provider', look for reputable options with verified ratings and transparent product specificatio..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "Popular market options recommended for 'best options for Zomato in products and services provider'."
+        }
+      ]
+    },
+    {
+      "question_id": "q2",
+      "question_text": "top rated Online solutions",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "For 'top rated Online solutions', look for reputable options with verified ratings and transparent product specifications."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "Popular market options recommended for 'top rated Online solutions'."
+        }
+      ]
+    }
+  ],
+  "run_at": "2026-08-03T07:44:46Z"
+}

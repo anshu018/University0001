@@ -1,0 +1,13 @@
+# Zomato
+
+## Summary
+Official website: https://www.zomato.com/
+Generated at: 2026-08-03T10:53:07.056220+00:00
+
+## Facts
+1. Official Website Title: Zomato Food Delivery (source: https://www.zomato.com/)
+
+## Approval
+Approved: True
+Approved by: Anshu
+Approved at: 2026-08-03T10:53:07.056220+00:00
