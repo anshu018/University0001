@@ -25,8 +25,8 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 
 | Stage                              | Status                                                          |
 | ---------------------------------- | --------------------------------------------------------------- |
-| 0 — Migrate skeleton               | Awaiting Verification                                           |
-| 1 — Website reading, mock pipeline | AWAITING VERIFICATION                                           |
+| 0 — Migrate skeleton               | VERIFIED & DONE                                                 |
+| 1 — Website reading, mock pipeline | VERIFIED & DONE                                                 |
 | 2 — Real AI API wired in           | NOT STARTED — blocked, no API key yet                           |
 | 3 — MCP server + demo agent        | NOT STARTED                                                     |
 | 4 — Multi-brand testing            | NOT STARTED                                                     |
