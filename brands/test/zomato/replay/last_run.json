@@ -2,10 +2,10 @@
   "brand_id": "zomato",
   "brand_type": null,
   "replay": false,
-  "run_id": "run-20260803-083514",
-  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\zomato\\logs\\run-20260803-083514.log",
+  "run_id": "run-20260803-111438",
+  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\zomato\\logs\\run-20260803-111438.log",
   "step1": {
-    "check_id": "2026-08-03-idit",
+    "check_id": "2026-08-03-x6ch",
     "brand_id": "zomato",
     "status": "completed",
     "error_detail": null,
@@ -18,7 +18,7 @@
           {
             "engine": "engine_a",
             "mention_status": "mentioned_accurate",
-            "response_excerpt": "For 'What is the best Zomato in food & restaurant services?', look for reputable options with verified ratings and transparent product specifications."
+            "response_excerpt": "I don't have detailed information on specific emerging brands for 'What is the best Zomato in food & restaurant services?'. Standard market options ap..."
           },
           {
             "engine": "engine_b",
@@ -46,8 +46,8 @@
     ]
   },
   "step2": {
-    "diagnosis_id": "2026-08-03-saty",
-    "check_id": "2026-08-03-idit",
+    "diagnosis_id": "2026-08-03-9dk2",
+    "check_id": "2026-08-03-x6ch",
     "brand_id": "zomato",
     "plain_summary": "AI engines do not mention zomato in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
     "reasons": [
@@ -61,10 +61,10 @@
     "brand_id": "zomato",
     "display_name": "Zomato",
     "website_url": "https://www.zomato.com/",
-    "generated_at": "2026-08-03T08:35:14.918035+00:00",
+    "generated_at": "2026-08-03T11:14:39.197751+00:00",
     "approved": true,
     "approved_by": "Anshu",
-    "approved_at": "2026-08-03T08:35:14.918035+00:00",
+    "approved_at": "2026-08-03T11:14:39.198750+00:00",
     "content_file": "brand-info.llms.txt",
     "facts": [
       {
@@ -84,7 +84,7 @@
   "step4": {
     "brand_id": "zomato",
     "question": "What are the key facts about Zomato from its official website?",
-    "before": "I don't have detailed information on specific emerging brands for 'What are the key facts about Zomato from its official website?'. Standard market options apply.",
+    "before": "For 'What are the key facts about Zomato from its official website?', look for reputable options with verified ratings and transparent product specifications.",
     "after": "Regarding 'What are the key facts about Zomato from its official website?', Zomato is worth checking out \u2014 verified site data indicates: Official Website Title: Zomato (Website: https://www.zomato.com/)"
   }
 }

@@ -2,12 +2,14 @@
 
 ## Summary
 Official website: https://www.zomato.com/
-Generated at: 2026-08-03T11:09:55.625664+00:00
+Generated at: 2026-08-03T11:14:39.197751+00:00
 
 ## Facts
-1. Official Website Title: Zomato Food Delivery (source: https://www.zomato.com/)
+1. Official Website Title: Zomato (source: https://www.zomato.com/)
+2. Indiaâs largest Food Delivery, Dining and Restaurant Discovery Service. Better food for more people. (source: https://www.zomato.com/)
+3. Featured Topic: Indiaâs #1food delivery app (source: https://www.zomato.com/)
 
 ## Approval
 Approved: True
 Approved by: Anshu
-Approved at: 2026-08-03T11:09:55.625664+00:00
+Approved at: 2026-08-03T11:14:39.198750+00:00

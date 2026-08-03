@@ -2,14 +2,22 @@
   "brand_id": "zomato",
   "display_name": "Zomato",
   "website_url": "https://www.zomato.com/",
-  "generated_at": "2026-08-03T11:09:55.625664+00:00",
+  "generated_at": "2026-08-03T11:14:39.197751+00:00",
   "approved": true,
   "approved_by": "Anshu",
-  "approved_at": "2026-08-03T11:09:55.625664+00:00",
+  "approved_at": "2026-08-03T11:14:39.198750+00:00",
   "content_file": "brand-info.llms.txt",
   "facts": [
     {
-      "fact": "Official Website Title: Zomato Food Delivery",
+      "fact": "Official Website Title: Zomato",
+      "source": "https://www.zomato.com/"
+    },
+    {
+      "fact": "India\u00e2\u0080\u0099s largest Food Delivery, Dining and Restaurant Discovery Service. Better food for more people.",
+      "source": "https://www.zomato.com/"
+    },
+    {
+      "fact": "Featured Topic: India\u00e2\u0080\u0099s #1food delivery app",
       "source": "https://www.zomato.com/"
     }
   ]
