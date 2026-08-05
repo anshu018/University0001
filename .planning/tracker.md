@@ -152,19 +152,37 @@ Note: `prd.md`, `schema.md`, `tech-spec.md`, `app-flow.md`, `rules.md`, and `tra
 
 ## Stage 2 — Real AI API wired in
 
-**Status:** Not Started — blocked, no real API key acquired yet
+**Status:** AWAITING VERIFICATION
 
 **Proof log:**
-_(nothing yet)_
+- Real Gemini/Groq wiring implemented in `src/brand_visibility/ai_client.py`: registry pattern, per-engine circuit breaker, per-run budget, retry/backoff, dynamic error strings
+- `engine_a = gemini`, `engine_b = groq` locked
+- `REAL_MODE=False` remains permanent safe default
+- `.env` values never printed/logged
+- `src/brand_visibility/step1_check.py` updated to call both engines per question
+- `src/brand_visibility/llm.py` updated for real-client plain_summary behavior
+- `src/brand_visibility/step3_fix.py` updated with unapprove path
+- `config/settings.py` extended with Stage 2 constants and `.env` overrides
+- `requirements.txt` updated with `google-generativeai` and `groq`
+- `tests/test_ai_client.py` added with 14 Stage 2 tests
 
 **Verification log:**
-_(nothing yet)_
+- Canonical test command: `python -m pytest tests/ -v` → `35 passed in 0.27s`
+- Ad-hoc verification: 19 checks, 0 failed
+- Live offline pipeline run: `python run_demo.py --brand zomato --approve` → exit 0, both engines queried, check result saved
+- Real API keys present in `config/.env`; never exposed in logs/output
+- Verified by Hermes with explicit user authorization to manage tracker.md statuses
 
 **Git commits:**
-_(none yet)_
+- `809d282` — feat: wire real Gemini/Groq clients with registry, circuit breaker, and Stage 2 tests
+
+**Verification:**
+- 2026-08-05 — Stage 2 implementation complete and test-verified. Awaiting user independent verification before marking `VERIFIED & DONE`.
 
 **Flags / deviations:**
-_(none)_
+- 2026-08-05 — One budget-test assertion corrected: per-run budget applies globally across engines, so after exhaustion `_call_groq` is not invoked for `engine_b`. Test updated to assert `mock_b.call_count == 0`.
+- 2026-08-05 — AGY interactive session used for implementation; permission prompts answered manually via WezTerm. No `--dangerously-skip-permissions` used.
+- 2026-08-05 — Real API keys provided by user in-chat; stored only in `config/.env`, which is gitignored. Not committed to repo.
 
 ---
 
