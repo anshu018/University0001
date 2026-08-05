@@ -9,7 +9,7 @@ Completely industry-agnostic and business-type neutral. Zero hardcoded vertical 
 
 from bs4 import BeautifulSoup
 import re
-from config.settings import REAL_MODE
+from config import settings
 from brand_visibility.exceptions import DIAGNOSIS_FIELDS
 
 
@@ -165,6 +165,7 @@ def get_diagnosis(check_result: dict, raw_text: str = "") -> dict:
     status = check_result.get("status", "completed")
     error_detail = check_result.get("error_detail")
     brand_id = check_result.get("brand_id", "the brand")
+    brand_type = check_result.get("brand_type")
 
     reasons = []
 
@@ -245,5 +246,11 @@ def get_diagnosis(check_result: dict, raw_text: str = "") -> dict:
             f"AI engines can find {brand_id}, but establishing an approved machine-readable "
             "brand fact file ensures ongoing accuracy."
         )
+
+    # Append actionable line for real-client mode / real brands
+    if getattr(settings, "REAL_MODE", False) or brand_type == "real":
+        actionable_line = "To improve your AI visibility: approve a structured brand fact file so AI engines can reference verified information about your business."
+        if actionable_line not in summary:
+            summary = f"{summary}\n{actionable_line}"
 
     return {"plain_summary": summary, "reasons": reasons}

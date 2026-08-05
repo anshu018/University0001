@@ -104,9 +104,11 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
     print("Querying engine_b...")
     for idx, q_text in enumerate(question_texts, start=1):
         q_id = f"q{idx}"
-        ans_a = ask_ai(q_text, brand_context=None)
-        
+        ans_a = ask_ai(q_text, brand_context=None, engine="engine_a")
+        ans_b = ask_ai(q_text, brand_context=None, engine="engine_b")
+
         mention_a = "mentioned_accurate" if display_name.lower() in ans_a.lower() else "not_mentioned"
+        mention_b = "mentioned_accurate" if display_name.lower() in ans_b.lower() else "not_mentioned"
 
         questions_payload.append({
             "question_id": q_id,
@@ -119,8 +121,8 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
                 },
                 {
                     "engine": "engine_b",
-                    "mention_status": "not_mentioned",
-                    "response_excerpt": f"Popular market options recommended for '{q_text}'.",
+                    "mention_status": mention_b,
+                    "response_excerpt": ans_b[:150] + "..." if len(ans_b) > 150 else ans_b,
                 },
             ],
         })

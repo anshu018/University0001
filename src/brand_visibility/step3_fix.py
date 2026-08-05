@@ -148,6 +148,27 @@ def approval_gate(brand_id: str, brand_type: str = None) -> dict:
     return brand_info
 
 
+def unapprove_brand(brand_id: str, brand_type: str = None) -> dict:
+    """Reset brand approval state to unapproved (False, None, None) without deleting files."""
+    brand_dir = get_brand_dir(brand_id, brand_type=brand_type)
+    generated_dir = brand_dir / "generated"
+    json_path = generated_dir / "brand-info.json"
+    llms_path = generated_dir / "brand-info.llms.txt"
+
+    if not json_path.exists():
+        raise BrandNotFoundError(f"Generated brand info file not found at {json_path}")
+
+    brand_info = json.loads(json_path.read_text(encoding="utf-8"))
+    brand_info["approved"] = False
+    brand_info["approved_by"] = None
+    brand_info["approved_at"] = None
+
+    json_path.write_text(json.dumps(brand_info, indent=2) + "\n", encoding="utf-8")
+    llms_path.write_text(_render_llms_txt(brand_info), encoding="utf-8")
+
+    return brand_info
+
+
 if __name__ == "__main__":
     import os as _os
     brand_id = _os.environ.get("BRAND_ID")
