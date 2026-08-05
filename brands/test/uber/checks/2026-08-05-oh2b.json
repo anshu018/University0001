@@ -1,0 +1,42 @@
+{
+  "check_id": "2026-08-05-oh2b",
+  "brand_id": "uber",
+  "status": "completed",
+  "error_detail": null,
+  "business_type_detected": "software & technology solutions",
+  "questions": [
+    {
+      "question_id": "q1",
+      "question_text": "What is the best Earn in software & technology solutions?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "For 'What is the best Earn in software & technology solutions?', look for reputable options with verified ratings and transparent product specificatio..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "I don't have specific brand recommendations for 'What is the best Earn in software & technology solutions?'. I suggest searching for established categ..."
+        }
+      ]
+    },
+    {
+      "question_id": "q2",
+      "question_text": "What is the best Money in software & technology solutions?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "I don't have specific brand recommendations for 'What is the best Money in software & technology solutions?'. I suggest searching for established cate..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "I don't have specific brand recommendations for 'What is the best Money in software & technology solutions?'. I suggest searching for established cate..."
+        }
+      ]
+    }
+  ],
+  "run_at": "2026-08-05T09:56:30Z"
+}

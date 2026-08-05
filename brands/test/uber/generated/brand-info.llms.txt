@@ -2,7 +2,7 @@
 
 ## Summary
 Official website: https://www.uber.com/
-Generated at: 2026-08-03T10:53:35.189786+00:00
+Generated at: 2026-08-05T10:19:33.950662+00:00
 
 ## Facts
 1. Official Website Title: Earn Money by Driving or Get a Ride Now | Uber India (source: https://www.uber.com/)
@@ -17,4 +17,4 @@ Generated at: 2026-08-03T10:53:35.189786+00:00
 ## Approval
 Approved: True
 Approved by: Anshu
-Approved at: 2026-08-03T10:53:35.192295+00:00
+Approved at: 2026-08-05T10:19:33.952274+00:00

@@ -1,0 +1,42 @@
+{
+  "check_id": "2026-08-05-yc5x",
+  "brand_id": "zomato",
+  "status": "completed",
+  "error_detail": null,
+  "business_type_detected": "food & restaurant services",
+  "questions": [
+    {
+      "question_id": "q1",
+      "question_text": "What are the top Food options in food & restaurant services?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "For 'What are the top Food options in food & restaurant services?', look for reputable options with verified ratings and transparent product specifica..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "I don't have detailed information on specific emerging brands for 'What are the top Food options in food & restaurant services?'. Standard market opti..."
+        }
+      ]
+    },
+    {
+      "question_id": "q2",
+      "question_text": "Which Zomato solutions are most recommended in food & restaurant services?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "mentioned_accurate",
+          "response_excerpt": "I don't have specific brand recommendations for 'Which Zomato solutions are most recommended in food & restaurant services?'. I suggest searching for ..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "mentioned_accurate",
+          "response_excerpt": "For 'Which Zomato solutions are most recommended in food & restaurant services?', look for reputable options with verified ratings and transparent pro..."
+        }
+      ]
+    }
+  ],
+  "run_at": "2026-08-05T10:15:15Z"
+}

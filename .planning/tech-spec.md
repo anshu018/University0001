@@ -11,8 +11,12 @@ One thing up front: the MCP Python SDK had a major version jump literally this w
 ## Stack
 
 - **Language:** Python (matches the existing skeleton — `ai_client.py`, `step1_check.py` through `step4_prove.py`).
-- **MCP SDK:** the official one, pinned: `mcp>=1.27,<2` in `requirements.txt`. Use the high-level `FastMCP` class (decorator-based tool functions, type hints become the schema — no manual JSON Schema writing needed). Confirm the exact import path against whatever version actually installs, since I'm working from general knowledge of the v1 API here, not a fresh read of the docs.
+- **MCP SDK:** the official one, pinned: `mcp>=1.27,<2` in `requirements.txt`. Use the high-level `FastMCP` class from the official SDK:
+  - Import: `from mcp.server.fastmcp import FastMCP`
+  - This is the official high-level API, not a separate third-party wrapper.
+  - Decorator-based tool functions, type hints become the schema — no manual JSON Schema writing needed.
 - **Transport:** stdio. The demo agent spawns the MCP server as a local subprocess and talks to it directly — no hosting, no network exposure, nothing that can go down mid-demo because a server crashed somewhere else. This is also just the standard local-MCP-server pattern, so there's plenty of precedent to build against.
+- **Stdio discipline:** stdout is reserved for MCP JSON-RPC frames only. Any logging, debug prints, or warnings must go to stderr or a file. A single stray stdout write corrupts the protocol and breaks the demo agent.
 
 ---
 

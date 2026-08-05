@@ -1,0 +1,42 @@
+{
+  "check_id": "2026-08-05-dl15",
+  "brand_id": "uber",
+  "status": "completed",
+  "error_detail": null,
+  "business_type_detected": "software & technology solutions",
+  "questions": [
+    {
+      "question_id": "q1",
+      "question_text": "What are the top Uber options in software & technology solutions?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "mentioned_accurate",
+          "response_excerpt": "I don't have specific brand recommendations for 'What are the top Uber options in software & technology solutions?'. I suggest searching for establish..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "mentioned_accurate",
+          "response_excerpt": "I don't have detailed information on specific emerging brands for 'What are the top Uber options in software & technology solutions?'. Standard market..."
+        }
+      ]
+    },
+    {
+      "question_id": "q2",
+      "question_text": "Which Around solutions are most recommended in software & technology solutions?",
+      "engine_results": [
+        {
+          "engine": "engine_a",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "For 'Which Around solutions are most recommended in software & technology solutions?', look for reputable options with verified ratings and transparen..."
+        },
+        {
+          "engine": "engine_b",
+          "mention_status": "not_mentioned",
+          "response_excerpt": "I don't have specific brand recommendations for 'Which Around solutions are most recommended in software & technology solutions?'. I suggest searching..."
+        }
+      ]
+    }
+  ],
+  "run_at": "2026-08-05T10:15:30Z"
+}

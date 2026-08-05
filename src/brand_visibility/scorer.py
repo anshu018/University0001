@@ -8,6 +8,7 @@ Completely industry-agnostic and business-type neutral. Zero vertical-specific a
 """
 
 import re
+from collections import Counter
 
 NOISE_WORDS = {
     "welcome", "notice", "started", "download", "downloads", "success", "stories",
@@ -21,22 +22,84 @@ NOISE_WORDS = {
     "about", "contact", "free", "shipping", "returns", "order", "account", "checkout",
     "help", "support", "policy", "company", "whether", "easy", "would", "could", "should",
     "their", "where", "which", "other", "first", "experienced", "user",
+    # Additional noise words (verbs, adverbs, web controls, promotional action words)
+    "earn", "online", "click", "make", "find", "show", "give", "take", "need", "want",
+    "more", "less", "just", "very", "also", "with", "from", "into", "onto", "your", "our",
+    "my", "us", "we", "you", "they", "them", "signup", "register", "join", "money",
+    "apply", "drive", "ride", "deliver", "downloading", "starting", "earning", "ordering",
+    "food", "restaurant", "delivery", "services", "solutions", "options", "platforms",
+    "products", "providers", "brands", "software", "technology", "business", "company",
+}
+
+STOP_WORDS = {
+    "a", "an", "the", "and", "or", "but", "if", "in", "on", "at", "to", "for", "with",
+    "by", "about", "against", "between", "into", "through", "during", "before", "after",
+    "above", "below", "up", "down", "out", "off", "over", "under", "again", "further",
+    "then", "once", "here", "there", "when", "where", "why", "how", "all", "any",
+    "both", "each", "few", "more", "most", "other", "some", "such", "no", "nor",
+    "not", "only", "own", "same", "so", "than", "too", "very", "s", "t", "can", "will",
+    "just", "don", "should", "now",
 }
 
 
+def _is_valid_word(word: str) -> bool:
+    wl = word.lower()
+    if len(wl) < 4 or len(wl) > 40:
+        return False
+    if wl in NOISE_WORDS or wl in STOP_WORDS:
+        return False
+    if wl.isdigit():
+        return False
+    if wl.endswith("ly") and len(wl) > 5:
+        return False
+    return True
+
+
 def _extract_page_topics(text: str) -> list[str]:
-    """Extract high-signal topic phrases from text while aggressively filtering noise words."""
+    """Extract high-signal topic phrases from text using n-grams and frequency ranking."""
     if not text or not isinstance(text, str):
         return []
 
-    words = re.findall(r"\b[A-Za-z]{4,}\b", text)
-    topics = []
+    clean_text = re.sub(r"[^\w\s]", " ", text)
+    words = clean_text.split()
+
+    candidates = []
+
+    # 1. Bigrams (2 consecutive valid words or proper title phrases)
+    for i in range(len(words) - 1):
+        w1, w2 = words[i], words[i + 1]
+        if _is_valid_word(w1) and _is_valid_word(w2):
+            phrase = f"{w1} {w2}".title()
+            candidates.append(phrase)
+
+    # 2. Capitalized / Title Case Phrases in raw text (e.g. "Gourmet Pizza", "Ride Sharing")
+    raw_phrases = re.findall(r"\b[A-Z][a-z]{3,}(?:\s+[A-Z][a-z]{3,}){1,2}\b", text)
+    for phrase in raw_phrases:
+        parts = phrase.split()
+        if all(_is_valid_word(p) for p in parts):
+            candidates.append(phrase.title())
+
+    # 3. High-signal Single Nouns (valid words)
     for w in words:
-        wl = w.lower()
-        if wl not in NOISE_WORDS and len(wl) > 3 and not wl.isdigit():
-            if wl not in [t.lower() for t in topics]:
-                topics.append(w)
-                if len(topics) >= 5:
+        if _is_valid_word(w):
+            candidates.append(w.capitalize())
+
+    if not candidates:
+        return []
+
+    counts = Counter(candidates)
+    most_common = counts.most_common()
+
+    topics = []
+    seen_lower = set()
+    for phrase, count in most_common:
+        pl = phrase.lower()
+        if pl not in seen_lower:
+            parts = pl.split()
+            if not any(p in NOISE_WORDS for p in parts):
+                seen_lower.add(pl)
+                topics.append(phrase)
+                if len(topics) >= 3:
                     break
 
     return topics
@@ -47,24 +110,27 @@ def generate_questions(business_type: str, text: str = "", count: int = 2) -> li
     Generate realistic buyer intent questions parameterized by detected business_type
     and dynamic context words extracted from the website text.
 
-    Natural phrase formatting without artificial slot fillers or web layout noise.
+    Three-tier fallback:
+    a. Strong topics from page extraction
+    b. Business-type intent questions when page topics are minimal
+    c. Fully generic fallback questions
     """
     biz = (business_type or "products and services").strip()
     topics = _extract_page_topics(text)
 
     questions = []
+
+    # Tier A: Strong topics extracted from page
     if len(topics) >= 2:
         t1, t2 = topics[0], topics[1]
-        q1 = f"What is the best {t1} in {biz}?" if t1[0].isupper() else f"What are the best {t1} in {biz}?"
-        q2 = f"What is the best {t2} in {biz}?" if t2[0].isupper() or not t2.endswith("s") else f"Which {t2} are most recommended for {biz}?"
-        questions.append(q1)
-        questions.append(q2)
+        questions.append(f"What are the top {t1} options in {biz}?")
+        questions.append(f"Which {t2} solutions are most recommended in {biz}?")
     elif len(topics) == 1:
         t1 = topics[0]
-        q = f"What is the best {t1} in {biz}?" if t1[0].isupper() else f"What are the best {t1} options for {biz}?"
-        questions.append(q)
-        questions.append(f"Which providers are most trusted in {biz}?")
+        questions.append(f"What are the top {t1} options in {biz}?")
+        questions.append(f"Which providers lead in {biz}?")
     else:
+        # Tier B / C: Generic on-topic fallback when page topics are weak/absent
         questions.append(f"What are the top options in {biz}?")
         questions.append(f"Which brands lead in {biz}?")
 

@@ -2,10 +2,10 @@
   "brand_id": "zomato",
   "brand_type": null,
   "replay": false,
-  "run_id": "run-20260803-111438",
-  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\zomato\\logs\\run-20260803-111438.log",
+  "run_id": "run-20260805-101929",
+  "log_path": "C:\\Users\\ash74\\projects\\brand-visibility-agent\\brands\\test\\zomato\\logs\\run-20260805-101929.log",
   "step1": {
-    "check_id": "2026-08-03-x6ch",
+    "check_id": "2026-08-05-dt99",
     "brand_id": "zomato",
     "status": "completed",
     "error_detail": null,
@@ -13,41 +13,41 @@
     "questions": [
       {
         "question_id": "q1",
-        "question_text": "What is the best Zomato in food & restaurant services?",
+        "question_text": "What are the top Zomato options in food & restaurant services?",
         "engine_results": [
           {
             "engine": "engine_a",
             "mention_status": "mentioned_accurate",
-            "response_excerpt": "I don't have detailed information on specific emerging brands for 'What is the best Zomato in food & restaurant services?'. Standard market options ap..."
+            "response_excerpt": "I don't have detailed information on specific emerging brands for 'What are the top Zomato options in food & restaurant services?'. Standard market op..."
           },
           {
             "engine": "engine_b",
-            "mention_status": "not_mentioned",
-            "response_excerpt": "Popular market options recommended for 'What is the best Zomato in food & restaurant services?'."
+            "mention_status": "mentioned_accurate",
+            "response_excerpt": "I don't have detailed information on specific emerging brands for 'What are the top Zomato options in food & restaurant services?'. Standard market op..."
           }
         ]
       },
       {
         "question_id": "q2",
-        "question_text": "What is the best Online in food & restaurant services?",
+        "question_text": "Which India\u00e2 solutions are most recommended in food & restaurant services?",
         "engine_results": [
           {
             "engine": "engine_a",
             "mention_status": "not_mentioned",
-            "response_excerpt": "I don't have detailed information on specific emerging brands for 'What is the best Online in food & restaurant services?'. Standard market options ap..."
+            "response_excerpt": "For 'Which India\u00e2 solutions are most recommended in food & restaurant services?', look for reputable options with verified ratings and transparent pro..."
           },
           {
             "engine": "engine_b",
             "mention_status": "not_mentioned",
-            "response_excerpt": "Popular market options recommended for 'What is the best Online in food & restaurant services?'."
+            "response_excerpt": "I don't have detailed information on specific emerging brands for 'Which India\u00e2 solutions are most recommended in food & restaurant services?'. Standa..."
           }
         ]
       }
     ]
   },
   "step2": {
-    "diagnosis_id": "2026-08-03-9dk2",
-    "check_id": "2026-08-03-x6ch",
+    "diagnosis_id": "2026-08-05-nchy",
+    "check_id": "2026-08-05-dt99",
     "brand_id": "zomato",
     "plain_summary": "AI engines do not mention zomato in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
     "reasons": [
@@ -61,10 +61,10 @@
     "brand_id": "zomato",
     "display_name": "Zomato",
     "website_url": "https://www.zomato.com/",
-    "generated_at": "2026-08-03T11:14:39.197751+00:00",
+    "generated_at": "2026-08-05T10:19:29.975468+00:00",
     "approved": true,
     "approved_by": "Anshu",
-    "approved_at": "2026-08-03T11:14:39.198750+00:00",
+    "approved_at": "2026-08-05T10:19:29.976577+00:00",
     "content_file": "brand-info.llms.txt",
     "facts": [
       {
@@ -84,7 +84,7 @@
   "step4": {
     "brand_id": "zomato",
     "question": "What are the key facts about Zomato from its official website?",
-    "before": "For 'What are the key facts about Zomato from its official website?', look for reputable options with verified ratings and transparent product specifications.",
+    "before": "I don't have specific brand recommendations for 'What are the key facts about Zomato from its official website?'. I suggest searching for established category providers.",
     "after": "Regarding 'What are the key facts about Zomato from its official website?', Zomato is worth checking out \u2014 verified site data indicates: Official Website Title: Zomato (Website: https://www.zomato.com/)"
   }
 }

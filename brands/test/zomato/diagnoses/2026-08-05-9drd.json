@@ -1,0 +1,13 @@
+{
+  "diagnosis_id": "2026-08-05-9drd",
+  "check_id": "chk-zomato-001",
+  "brand_id": "zomato",
+  "plain_summary": "AI engines have limited information about zomato because its website contains very little indexable text content.",
+  "reasons": [
+    {
+      "reason_code": "thin_content",
+      "detail": "Extracted site text is thin (8 words found, under 100 word threshold)."
+    }
+  ],
+  "run_at": "2026-08-05T09:34:09Z"
+}

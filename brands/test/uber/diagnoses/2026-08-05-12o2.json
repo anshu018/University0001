@@ -1,0 +1,13 @@
+{
+  "diagnosis_id": "2026-08-05-12o2",
+  "check_id": "2026-08-05-dl15",
+  "brand_id": "uber",
+  "plain_summary": "AI engines do not mention uber in buyer-intent results, even though its website has real content. Without a structured brand fact file, the brand stays invisible.",
+  "reasons": [
+    {
+      "reason_code": "low_visibility",
+      "detail": "The website has real content, but AI engines still do not mention this brand in response to buyer-intent questions."
+    }
+  ],
+  "run_at": "2026-08-05T10:15:30Z"
+}

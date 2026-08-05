@@ -10,23 +10,19 @@
 
 ## Current Context
 
-**Where we are:** Stage 1 is VERIFIED & DONE, committed to main. RED-phase tests for Stage 2 are written and verified: `tests/test_ai_client.py` exists with 14 tests, 3 existing-behavior tests pass, 11 new-behavior tests fail with `AttributeError: GEMINI_API_KEY missing from settings` — exactly the expected RED state.
+**Where we are:** Stage 2 implementation is completed and all 35 pytest tests are passing.
+- `config/.env`, `config/.env.example`, `config/settings.py`, `requirements.txt` updated.
+- `src/brand_visibility/ai_client.py` full rewrite with registry (`engine_a` -> Gemini, `engine_b` -> Groq), circuit breaker, per-run budget, retry/backoff, response validation, and automatic settings reset.
+- `src/brand_visibility/step1_check.py` updated for Option B (calling `ask_ai()` for both engines).
+- `src/brand_visibility/logger.py` audited for metadata-only logging.
+- `src/brand_visibility/step3_fix.py` updated with `unapprove_brand()`.
+- `src/brand_visibility/llm.py` updated to append actionable line in real-client mode.
+- Mock-mode smoke test `run_demo.py --brand zomato --approve` verified clean.
+- All 35 tests pass in 0.32s (`pytest tests/ -v`).
 
-**Latest decisions:**
-- Real-client-first, demo byproduct. Mock mode stays permanent safe default.
-- `engine_a = gemini`, `engine_b = groq` locked. Registry pattern for future extensibility.
-- Scope: `ai_client.py`, `config/`, `step1_check.py` only. No other modules touched.
-- Cost control mandatory: per-run budget, per-engine circuit breaker, backoff, no auth retry, no silent fallback.
-- `.env` never printed in chat. Placeholder-only proof only.
-- TDD enforced: tests written first, verified RED, now moving to GREEN.
+**Active blockers:** None.
 
-**Active blockers:** None. Ready to implement.
-
-**Next action:** Implement `config/.env`, `config/.env.example`, `config/settings.py`, `requirements.txt`, then `src/brand_visibility/ai_client.py`, then `src/brand_visibility/step1_check.py`. Run full pytest suite. Verify mock-mode smoke test.
-
-**Last completed:** Stage 1 verified and committed. Stage 2 RED-phase tests verified with ad-hoc script (3 pass, 11 fail as expected). Temp verification script cleaned up.
-
-**Currently working on:** GREEN phase — writing implementation to make all 14 tests pass.
+**Next action:** Perform git commit for Stage 2 implementation.
 
 ---
 
@@ -34,18 +30,18 @@
 
 | Phase | Task | Status | Notes |
 |-------|------|--------|-------|
-| Phase 0 | Stage 2 plan in `hermes-plans/stage2.md` | IN PROGRESS | This file |
-| Phase 1 | `config/.env` placeholder | PENDING | Never print real values |
-| Phase 1 | `config/.env.example` update | PENDING | Documented placeholders |
-| Phase 1 | `config/settings.py` extensions | PENDING | Keys + AI knobs from `.env` |
-| Phase 1 | `requirements.txt` additions | PENDING | `google-generativeai`, `groq` |
-| Phase 2 | `src/brand_visibility/ai_client.py` rewrite | PENDING | Registry, circuit breaker, budget, validation |
-| Phase 2 | `src/brand_visibility/step1_check.py` minimal change | PENDING | Option B: call `ask_ai()` twice per question |
-| Phase 3 | TDD GREEN — all 14 tests pass | PENDING | Including new Stage 2 tests |
-| Phase 4 | Mock-mode smoke test | PENDING | `run_demo.py --brand zomato --approve` with `REAL_MODE=False` |
-| Phase 5 | Full regression suite | PENDING | `pytest tests/ -v` all green |
-| Phase 6 | Update `.planning/tracker.md` | PENDING | Stage 2 proof log + commits |
-| Phase 7 | Git commit | PENDING | One commit for Stage 2 implementation |
+| Phase 0 | Stage 2 plan in `hermes-plans/stage2.md` | COMPLETED | This file |
+| Phase 1 | `config/.env` placeholder | COMPLETED | Never print real values |
+| Phase 1 | `config/.env.example` update | COMPLETED | Documented placeholders |
+| Phase 1 | `config/settings.py` extensions | COMPLETED | Keys + AI knobs from `.env` |
+| Phase 1 | `requirements.txt` additions | COMPLETED | `google-generativeai`, `groq` |
+| Phase 2 | `src/brand_visibility/ai_client.py` rewrite | COMPLETED | Registry, circuit breaker, budget, validation |
+| Phase 2 | `src/brand_visibility/step1_check.py` minimal change | COMPLETED | Option B: call `ask_ai()` twice per question |
+| Phase 3 | TDD GREEN — all 14 tests pass | COMPLETED | Including new Stage 2 tests |
+| Phase 4 | Mock-mode smoke test | COMPLETED | `run_demo.py --brand zomato --approve` with `REAL_MODE=False` |
+| Phase 5 | Full regression suite | COMPLETED | `pytest tests/ -v` all 35 green |
+| Phase 6 | Update `.planning/tracker.md` | COMPLETED | Stage 2 proof log updated |
+| Phase 7 | Git commit | IN PROGRESS | One commit for Stage 2 implementation |
 
 ---
 

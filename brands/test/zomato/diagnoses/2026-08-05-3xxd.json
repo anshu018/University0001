@@ -1,0 +1,8 @@
+{
+  "diagnosis_id": "2026-08-05-3xxd",
+  "check_id": "test-chk-001",
+  "brand_id": "zomato",
+  "plain_summary": "AI engines can find zomato, but establishing an approved machine-readable brand fact file ensures ongoing accuracy.",
+  "reasons": [],
+  "run_at": "2026-08-05T09:36:12Z"
+}

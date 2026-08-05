@@ -14,9 +14,39 @@ def test_extract_page_topics_noise_filtering():
     """Verify that noise words like 'welcome', 'login', 'copyright' are excluded from topics."""
     text = "Welcome to our page. Login to access menu and cart. Copyright 2026. Delivering Pizza and Burgers."
     topics = _extract_page_topics(text)
-    # 'Welcome', 'Login', 'menu', 'cart', 'Copyright' should all be filtered out as noise words
     assert not any(t.lower() in NOISE_WORDS for t in topics)
-    assert "Pizza" in topics or "Burgers" in topics or "Delivering" in topics
+    assert any("Pizza" in t or "Burgers" in t for t in topics)
+
+
+def test_noisy_page_text_filters_out_earn_online_money():
+    """Verify that noisy words like 'Earn', 'Online', 'Money', 'Downloading' are filtered out."""
+    noisy_text = (
+        "Earn money online! Click here to start downloading and earning today. "
+        "Get started now with easy online registration."
+    )
+    topics = _extract_page_topics(noisy_text)
+    topic_words = [t.lower() for t in topics]
+    for bad in ["earn", "online", "money", "downloading", "earning", "started", "register"]:
+        assert bad not in topic_words
+        assert not any(bad in t.lower().split() for t in topics)
+
+
+def test_generate_questions_quality_uber_zomato_noisy_text():
+    """Verify that generated questions for noisy text do not contain broken 'best Earn' / 'best Online' phrasing."""
+    uber_noisy_text = "Earn money driving. Download app and start earning online. Flexible hours for drivers."
+    questions_uber = generate_questions("transport & mobility", uber_noisy_text, count=2)
+    for q in questions_uber:
+        assert "best Earn" not in q
+        assert "best Online" not in q
+        assert "best Money" not in q
+        assert "top" in q.lower() or "which" in q.lower() or "best" in q.lower()
+
+    zomato_noisy_text = "Order food online. Easy checkout and online payment for restaurant delivery."
+    questions_zomato = generate_questions("food & restaurant services", zomato_noisy_text, count=2)
+    for q in questions_zomato:
+        assert "best Online" not in q
+        assert "best Order" not in q
+        assert "top" in q.lower() or "which" in q.lower() or "best" in q.lower()
 
 
 def test_generate_questions_count():
@@ -42,7 +72,7 @@ def test_generate_questions_templates_with_topics():
     text = "Delivering Gourmet Pizza and Artisanal Pasta."
     questions = generate_questions("restaurant services", text, count=2)
     assert len(questions) == 2
-    assert any("Pizza" in q or "Gourmet" in q for q in questions)
+    assert any("Pizza" in q or "Gourmet" in q or "Pasta" in q for q in questions)
 
 
 def test_score_visibility_calculation():
