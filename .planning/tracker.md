@@ -161,10 +161,13 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 - Verified by Antigravity (AGY)
 
 **Git commits:**
-- Pending stage commit
+- `809d282` — feat: wire real Gemini/Groq clients with registry, circuit breaker, and Stage 2 tests
+- `01ed3a5` — docs: mark Stage 2 as AWAITING VERIFICATION in tracker.md with commit refs
+- `44f7e9e` — chore: Stage 2 polish artifacts, scorer updates, FastMCP spec, demo report
 
 **Verification:**
 - 2026-08-05 — Stage 2 implementation complete and test-verified. All 35 tests passing.
+- Remote state verified: `git ls-remote origin main` returned `44f7e9e`, matching local HEAD after push.
 
 ---
 
