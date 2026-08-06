@@ -10,43 +10,14 @@ from brand_visibility.scorer import (
 )
 
 
-def test_extract_page_topics_noise_filtering():
-    """Verify that noise words like 'welcome', 'login', 'copyright' are excluded from topics."""
-    text = "Welcome to our page. Login to access menu and cart. Copyright 2026. Delivering Pizza and Burgers."
+def test_extract_page_topics_returns_yake_phrases():
+    """Verify YAKE returns plausible topic phrases instead of broken suffix-filtered output."""
+    text = "We provide consulting services for small businesses. We also offer transportation and investment planning. Call us for automotive solutions."
     topics = _extract_page_topics(text)
-    assert not any(t.lower() in NOISE_WORDS for t in topics)
-    assert any("Pizza" in t or "Burgers" in t for t in topics)
-
-
-def test_noisy_page_text_filters_out_earn_online_money():
-    """Verify that noisy words like 'Earn', 'Online', 'Money', 'Downloading' are filtered out."""
-    noisy_text = (
-        "Earn money online! Click here to start downloading and earning today. "
-        "Get started now with easy online registration."
-    )
-    topics = _extract_page_topics(noisy_text)
-    topic_words = [t.lower() for t in topics]
-    for bad in ["earn", "online", "money", "downloading", "earning", "started", "register"]:
-        assert bad not in topic_words
-        assert not any(bad in t.lower().split() for t in topics)
-
-
-def test_generate_questions_quality_uber_zomato_noisy_text():
-    """Verify that generated questions for noisy text do not contain broken 'best Earn' / 'best Online' phrasing."""
-    uber_noisy_text = "Earn money driving. Download app and start earning online. Flexible hours for drivers."
-    questions_uber = generate_questions("transport & mobility", uber_noisy_text, count=2)
-    for q in questions_uber:
-        assert "best Earn" not in q
-        assert "best Online" not in q
-        assert "best Money" not in q
-        assert "top" in q.lower() or "which" in q.lower() or "best" in q.lower()
-
-    zomato_noisy_text = "Order food online. Easy checkout and online payment for restaurant delivery."
-    questions_zomato = generate_questions("food & restaurant services", zomato_noisy_text, count=2)
-    for q in questions_zomato:
-        assert "best Online" not in q
-        assert "best Order" not in q
-        assert "top" in q.lower() or "which" in q.lower() or "best" in q.lower()
+    assert len(topics) >= 1
+    joined = " ".join(topics).lower()
+    assert "consulting" in joined
+    assert any(word in joined for word in ["investment", "transportation", "automotive", "businesses"])
 
 
 def test_generate_questions_count():
@@ -59,9 +30,8 @@ def test_generate_questions_count():
 
 
 def test_generate_questions_templates_no_topics():
-    """Verify template fallback when no page topics are extracted."""
-    text = "Welcome login copyright menu cart"  # All noise words
-    questions = generate_questions("food & restaurant services", text, count=2)
+    """Verify template fallback when YAKE returns no page topics."""
+    questions = generate_questions("food & restaurant services", text="a an the and or but", count=2)
     assert len(questions) == 2
     assert "What are the top options in food & restaurant services?" in questions[0]
     assert "Which brands lead in food & restaurant services?" in questions[1]

@@ -127,8 +127,8 @@ Four steps, mapped directly to Adobe's own Sense → Generate → Reach → Lear
 | #   | Feature                                                | Priority                   | Maps to Flow Step | Maps to Build Stage             |
 | --- | ------------------------------------------------------ | -------------------------- | ----------------- | ------------------------------- |
 | 1   | Read a brand's real website from a URL                 | Must-have                  | Step 1            | Stage 1                         |
-| 2   | Auto-generate realistic buyer-intent questions         | Must-have                  | Step 1            | Stage 1                         |
-| 3   | Query 2+ AI engines and classify brand mention         | Must-have                  | Step 1            | Stage 1 (mock) / Stage 2 (real) |
+| 2   | Auto-generate realistic buyer-intent questions         | Must-have                  | Step 1            | Stage 1 / Stage 2.1 polish            |
+| 3   | Query 2+ AI engines and classify brand mention         | Must-have                  | Step 1            | Stage 1 (mock) / Stage 2 (real)       |
 | 4   | Plain-language diagnosis of why brand is missing/wrong | Must-have                  | Step 2            | Stage 1                         |
 | 5   | Auto-generate structured, facts-only brand file        | Must-have                  | Step 3            | Stage 1–2                       |
 | 6   | Single explicit human approval gate before publishing  | Must-have                  | Step 3            | Stage 1                         |

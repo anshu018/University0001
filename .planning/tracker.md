@@ -27,8 +27,9 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 | ---------------------------------- | --------------------------------------------------------------- |
 | 0 — Migrate skeleton               | VERIFIED & DONE                                                 |
 | 1 — Website reading, mock pipeline | VERIFIED & DONE                                                 |
-| 2 — Real AI API wired in           | AWAITING VERIFICATION                                           |
-| 3 — MCP server + demo agent        | NOT STARTED                                                     |
+|| 2 — Real AI API wired in           | AWAITING VERIFICATION                                           |
+|| 2.1 — YAKE-Based Question Extraction Polish (Added From Hermes) | AWAITING VERIFICATION |
+|| 3 — MCP server + demo agent        | NOT STARTED                                                     |
 | 4 — Multi-brand testing            | NOT STARTED                                                     |
 | 5 — Real brand onboarding          | NOT STARTED — blocked, real Round 2 brief not out yet (~Aug 16) |
 | 6 — UI polish + repo cleanup       | NOT STARTED                                                     |
@@ -168,6 +169,38 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 **Verification:**
 - 2026-08-05 — Stage 2 implementation complete and test-verified. All 35 tests passing.
 - Remote state verified: `git ls-remote origin main` returned `44f7e9e`, matching local HEAD after push.
+
+---
+
+## Stage 2.1 — YAKE-Based Question Extraction Polish (Added From Hermes)
+
+**Status:** VERIFIED & DONE
+
+**Proof log:**
+- `src/brand_visibility/scorer.py` updated: `_extract_page_topics()` now uses YAKE keyword extraction instead of bigram generation + title-case regex + frequency ranking + suffix filter
+- `tests/test_scorer.py` updated: assertions adjusted to YAKE-specific behavior and new edge-case coverage
+- `requirements.txt` updated: added `yake`
+- `jellyfish` environment mismatch resolved: installed `cp314`-compatible wheel into Python 3.14-accessible site-packages for test execution
+- Canonical test command: `PYTHONPATH='C:\Users\ash74\projects\brand-visibility-agent\.pytest-packages' /c/Python314/python.exe -m pytest tests/test_scorer.py -v` → `6 passed`
+- Full regression: `PYTHONPATH='C:\Users\ash74\projects\brand-visibility-agent\.pytest-packages' /c/Python314/python.exe -m pytest tests/ -v` → `35 passed`
+- Live pipeline verification: `PYTHONPATH='C:\Users\ash74\projects\brand-visibility-agent\.pytest-packages' BRAND_AUTO_APPROVE=1 /c/Python314/python.exe run_demo.py --brand python-org --approve` → exit 0, generated checks/diagnoses/generated files
+- Replay verification: `PYTHONPATH='C:\Users\ash74\projects\brand-visibility-agent\.pytest-packages' /c/Python314/python.exe run_demo.py --brand python-org --replay` → exit 0, loaded cached run cleanly
+- AGY verification: AGY ran `PYTHONPATH=.pytest-packages C:\Python314\python.exe -m pytest tests/test_scorer.py -v` → `6 passed in 0.49s`; AGY did not edit any files
+
+**Verification log:**
+- Verified by Hermes with explicit user authorization to update planning docs
+- Raw pytest output captured for both scorer-specific and full-suite runs
+- Live end-to-end run completed for unseen brand `python-org`
+- Replay path confirmed working from cached disk artifacts
+- AGY-side verification completed after fixing WezTerm prompt delivery; AGY reported `6 passed`
+
+**Git commits:**
+- None yet for Stage 2.1 implementation; changes currently uncommitted
+
+**Flags / deviations:**
+- 2026-08-06 — Minor YAKE page-noise observed: `python-org` run produced question `What are the top Python.org Notice options in software & technology solutions?` from page heading noise. Existing Tier B/C fallback handles weak extraction; no fourth fallback layer added per senior feedback.
+- 2026-08-06 — `jellyfish` was not importable under Python 3.14 from the default site-packages; resolved by installing `cp314` wheel into a project-local `.pytest-packages` directory and using `PYTHONPATH` during test execution. This is an environment fix, not a code change.
+- 2026-08-06 — AGY communication loop encountered stale permission-prompt state; resolved by clearing stale queue and switching to file-based multiline prompt delivery via `wezterm cli send-text` stdin piping. Pattern documented in `agent-delegation-rules` skill.
 
 ---
 

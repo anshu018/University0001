@@ -10,6 +10,8 @@ Completely industry-agnostic and business-type neutral. Zero vertical-specific a
 import re
 from collections import Counter
 
+import yake
+
 NOISE_WORDS = {
     "welcome", "notice", "started", "download", "downloads", "success", "stories",
     "events", "community", "foundation", "donate", "sponsors", "jobs", "news", "blog",
@@ -56,51 +58,31 @@ def _is_valid_word(word: str) -> bool:
 
 
 def _extract_page_topics(text: str) -> list[str]:
-    """Extract high-signal topic phrases from text using n-grams and frequency ranking."""
+    """Extract high-signal topic phrases from text using YAKE keyword extraction."""
     if not text or not isinstance(text, str):
         return []
 
-    clean_text = re.sub(r"[^\w\s]", " ", text)
-    words = clean_text.split()
-
-    candidates = []
-
-    # 1. Bigrams (2 consecutive valid words or proper title phrases)
-    for i in range(len(words) - 1):
-        w1, w2 = words[i], words[i + 1]
-        if _is_valid_word(w1) and _is_valid_word(w2):
-            phrase = f"{w1} {w2}".title()
-            candidates.append(phrase)
-
-    # 2. Capitalized / Title Case Phrases in raw text (e.g. "Gourmet Pizza", "Ride Sharing")
-    raw_phrases = re.findall(r"\b[A-Z][a-z]{3,}(?:\s+[A-Z][a-z]{3,}){1,2}\b", text)
-    for phrase in raw_phrases:
-        parts = phrase.split()
-        if all(_is_valid_word(p) for p in parts):
-            candidates.append(phrase.title())
-
-    # 3. High-signal Single Nouns (valid words)
-    for w in words:
-        if _is_valid_word(w):
-            candidates.append(w.capitalize())
-
-    if not candidates:
+    try:
+        kw_extractor = yake.KeywordExtractor(n=2, top=5)
+        keywords = kw_extractor.extract_keywords(text)
+    except Exception:
         return []
-
-    counts = Counter(candidates)
-    most_common = counts.most_common()
 
     topics = []
     seen_lower = set()
-    for phrase, count in most_common:
-        pl = phrase.lower()
-        if pl not in seen_lower:
-            parts = pl.split()
-            if not any(p in NOISE_WORDS for p in parts):
-                seen_lower.add(pl)
-                topics.append(phrase)
-                if len(topics) >= 3:
-                    break
+    for kw, score in keywords:
+        if not kw or not isinstance(kw, str):
+            continue
+        cleaned = kw.strip()
+        if not cleaned:
+            continue
+        lowered = cleaned.lower()
+        if lowered in seen_lower:
+            continue
+        seen_lower.add(lowered)
+        topics.append(cleaned)
+        if len(topics) >= 3:
+            break
 
     return topics
 

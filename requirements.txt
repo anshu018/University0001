@@ -4,3 +4,4 @@ python-dotenv
 pytest
 google-generativeai
 groq
+yake

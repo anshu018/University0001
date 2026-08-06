@@ -22,6 +22,7 @@ Whenever either number shows up, say "Step" or "Stage" out loud with it — neve
 | 0     | Move the old skeleton into the locked structure, reconcile it against `schema.md`                                            | Scaffold folder must already exist             | `src/`, `brands/test/`, `.planning/`                         |
 | 1     | Real website reading, rule-based question generation, mock-mode check + diagnose, draft brand-file generation, approval gate | Stage 0 verified                               | Step 1/2/3 scripts (draft-only)                              |
 | 2     | Real AI API wired into `ai_client.py`; harden the brand-file extractor against real sites                                    | Stage 1 verified **and** a real API key exists | `ai_client.py`, `config/`                                    |
+| 2.1   | YAKE-based question extraction polish                                                                                          | Stage 2 verified                               | `src/brand_visibility/scorer.py`, `tests/test_scorer.py`     |
 | 3     | MCP server + the before/after demo agent                                                                                     | Stage 1 verified (does **not** need Stage 2)   | `src/mcp_server.py`, Step 4 script                           |
 | 4     | Multi-brand testing, `requirements.txt`, README quick-start                                                                  | Stages 1–3 verified                            | `brands/test/` (2–3 brands), `README.md`, `requirements.txt` |
 | 5     | Real brand onboarding sessions                                                                                               | Real Round 2 brief known + Stage 4 verified    | `brands/real/`                                               |
@@ -104,6 +105,21 @@ Stages 0–4 don't depend on the real Round 2 brief at all and can happen anytim
 6. If time allows: harden the rule-based extractor from Stage 1 against real-world site quirks you actually hit while testing with real engines.
 
 **Definition of done:** One real, redacted API response captured as proof it's genuinely hitting a real provider, one confirmation run showing mock mode still works unchanged with `REAL_MODE: False`, git commit.
+
+---
+
+## Stage 2.1 — YAKE-Based Question Extraction Polish (Added From Hermes)
+
+**Goal:** Replace the brittle bigram + suffix-filter question extraction in `scorer.py` with YAKE-based keyword extraction, keeping the existing three-tier question template system and grammar-safe behavior unchanged.
+
+**Prerequisites:** Stage 2 verified.
+
+**Deliverables:**
+1. `src/brand_visibility/scorer.py`: replace `_extract_page_topics()` extraction logic with YAKE while preserving `generate_questions()` templates and fallback behavior.
+2. `tests/test_scorer.py`: update extraction assertions and cover YAKE-specific behavior, including weak/short-text fallback.
+3. `requirements.txt`: add `yake`.
+
+**Definition of done:** `pytest tests/ -v` green, live `run_demo.py` run completes for an unseen test brand, and question output no longer includes the previous suffix-blocked/noise patterns that broke legitimate category terms.
 
 ---
 
