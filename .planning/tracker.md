@@ -229,7 +229,7 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 - AGY verification: AGY declared R2-4 COMPLETED & VERIFIED after file inspection; summary written to `hermes-plans/r2-4-implementation-summary.md`
 
 **Git commits:**
-- Pending — awaiting commit and push
+- `014c653` — security: complete Round 2 hardening R2-1 through R2-4 with tests
 
 **Flags / deviations:**
 - 2026-08-07 — AGY delivery via WezTerm `send-text` encountered CLI parsing issues with multiline prompts containing special characters; resolved by using stdin piping and direct pane messaging fallback
