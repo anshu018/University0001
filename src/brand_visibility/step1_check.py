@@ -63,7 +63,7 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
     display_name = brand_record.get("display_name", brand_id)
     check_id = make_check_id()
 
-    print(f"\n[1/4] CHECK — reading {website_url} ...")
+    print(f"\n[1/4] CHECK — reading {website_url} ...", file=sys.stderr)
 
     # 1. Fetch website HTML
     status, raw_html, error_detail = fetch_url(website_url, timeout=10, retries=1)
@@ -90,18 +90,18 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
 
     # 3. Detect business type
     biz_type = detect_business_type(extracted_text, website_url=website_url)
-    print(f"Detected business type: {biz_type}")
+    print(f"Detected business type: {biz_type}", file=sys.stderr)
 
     # 4. Generate buyer questions
     question_texts = generate_questions(biz_type, extracted_text, count=2)
-    print("\nGenerated buyer questions:")
+    print("\nGenerated buyer questions:", file=sys.stderr)
     for idx, q_text in enumerate(question_texts, start=1):
-        print(f'  Q{idx}: "{q_text}"')
+        print(f'  Q{idx}: "{q_text}"', file=sys.stderr)
 
     # 5. Evaluate AI engine mentions
     questions_payload = []
-    print("\nQuerying engine_a...")
-    print("Querying engine_b...")
+    print("\nQuerying engine_a...", file=sys.stderr)
+    print("Querying engine_b...", file=sys.stderr)
     for idx, q_text in enumerate(question_texts, start=1):
         q_id = f"q{idx}"
         ans_a = ask_ai(q_text, brand_context=None, engine="engine_a")
@@ -127,13 +127,13 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
             ],
         })
 
-    print("\nResults:")
+    print("\nResults:", file=sys.stderr)
     for q_data in questions_payload:
         q_id = q_data["question_id"]
         for eng in q_data["engine_results"]:
             eng_name = eng["engine"]
             m_status = eng["mention_status"].replace("_", " ").upper()
-            print(f"  {q_id} x {eng_name:<10} [{m_status}]")
+            print(f"  {q_id} x {eng_name:<10} [{m_status}]", file=sys.stderr)
 
     check_result = {
         "check_id": check_id,
@@ -145,7 +145,7 @@ def run_check(brand_id: str, brand_type: str = None) -> tuple[dict, str]:
     }
 
     output_path = write_check_result(check_result, brand_id, brand_type=brand_type)
-    print(f"\nCheck result saved to: {output_path}")
+    print(f"\nCheck result saved to: {output_path}", file=sys.stderr)
 
     return check_result, raw_html
 
@@ -158,4 +158,4 @@ if __name__ == "__main__":
         print("Set BRAND_ID to run directly.", file=sys.stderr)
         raise SystemExit(2)
     res, html = run_check(brand_id, brand_type=brand_type)
-    print(f"Step 1 CHECK completed successfully. Check ID: {res['check_id']}")
+    print(f"Step 1 CHECK completed successfully. Check ID: {res['check_id']}", file=sys.stderr)

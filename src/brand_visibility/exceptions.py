@@ -74,6 +74,9 @@ def make_diagnosis_id() -> str:
 # Path Utilities
 # -----------------------------------------------------------------------------
 
+import re
+
+
 def get_base_dir() -> Path:
     """Return the absolute path to the project root directory."""
     return Path(__file__).resolve().parent.parent.parent
@@ -81,23 +84,40 @@ def get_base_dir() -> Path:
 
 def get_brand_dir(brand_id: str, brand_type: str = None) -> Path:
     """
-    Resolve the directory path for a given brand_id.
+    Resolve the directory path for a given brand_id with path traversal defense.
     
     If brand_type is provided ('test' or 'real'), resolves directly under that folder.
     Otherwise, checks brands/test/<brand_id> first, then brands/real/<brand_id>.
     """
-    base_dir = get_base_dir()
-    if brand_type:
-        return base_dir / "brands" / brand_type / brand_id
+    if not brand_id or not isinstance(brand_id, str):
+        raise ValueError("brand_id must be a non-empty string")
     
-    test_path = base_dir / "brands" / "test" / brand_id
+    if not re.match(r"^[a-zA-Z0-9_-]+$", brand_id):
+        raise ValueError(f"Invalid brand_id format: '{brand_id}'")
+        
+    base_dir = get_base_dir()
+    brands_root = (base_dir / "brands").resolve()
+
+    if brand_type:
+        if brand_type not in ("test", "real"):
+            raise ValueError(f"Invalid brand_type: '{brand_type}'")
+        target_path = (base_dir / "brands" / brand_type / brand_id).resolve()
+        if not str(target_path).startswith(str(brands_root)):
+            raise ValueError(f"Path traversal detected for brand_id '{brand_id}'")
+        return target_path
+
+    test_path = (base_dir / "brands" / "test" / brand_id).resolve()
+    if not str(test_path).startswith(str(brands_root)):
+        raise ValueError(f"Path traversal detected for brand_id '{brand_id}'")
     if test_path.exists():
         return test_path
-        
-    real_path = base_dir / "brands" / "real" / brand_id
+
+    real_path = (base_dir / "brands" / "real" / brand_id).resolve()
+    if not str(real_path).startswith(str(brands_root)):
+        raise ValueError(f"Path traversal detected for brand_id '{brand_id}'")
     if real_path.exists():
         return real_path
-        
+
     # Default fallback to test if neither exists yet
     return test_path
 

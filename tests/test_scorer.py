@@ -96,3 +96,51 @@ def test_score_visibility_thin_content_penalty():
     score = score_visibility(check_result, diagnosis=diagnosis_thin)
     assert score["overall_score"] <= 15
     assert score["visibility_grade"] == "Low"
+
+
+def test_extract_page_topics_filters_web_structural_noise():
+    """Verify YAKE extraction filters out pure structural noise phrases like Notice, Cookie, or JavaScript."""
+    noisy_text = "Notice: Please enable Javascript and accept Cookie Policy to view this website notice."
+    topics = _extract_page_topics(noisy_text)
+    # Pure web noise should be filtered out
+    for t in topics:
+        assert t.lower() not in ("notice", "cookie policy", "javascript enabled", "cookie")
+
+
+def test_extract_page_topics_handles_unicode_and_html():
+    """Verify topic extraction handles raw HTML tags and unicode text cleanly without exceptions."""
+    raw_html = "<script>var x=10;</script><p>We specialize in <b>Automotive Logistics</b> and Freight Management.</p>"
+    topics = _extract_page_topics(raw_html)
+    assert len(topics) >= 1
+    joined = " ".join(topics).lower()
+    assert "logistics" in joined or "freight" in joined or "automotive" in joined
+
+    unicode_text = "Our café chain offers artisanal coffee in München and Zürich."
+    topics_uni = _extract_page_topics(unicode_text)
+    assert len(topics_uni) >= 1
+
+
+def test_generate_questions_handles_large_and_malformed_inputs():
+    """Verify generate_questions handles very large text (>100k chars) and None input safely."""
+    huge_text = "Sustainable Organic Farming Practices. " * 5000
+    questions = generate_questions("agriculture", text=huge_text, count=2)
+    assert len(questions) == 2
+    assert isinstance(questions[0], str)
+
+    questions_none = generate_questions(None, text=None, count=2)
+    assert len(questions_none) == 2
+    assert "What are the top options in products and services?" in questions_none[0]
+
+
+def test_score_visibility_handles_malformed_dicts():
+    """Verify score_visibility handles None, empty, or malformed input dicts gracefully."""
+    score_none = score_visibility(None)
+    assert score_none["overall_score"] == 0
+    assert score_none["visibility_grade"] == "Low"
+
+    score_empty = score_visibility({}, diagnosis=None)
+    assert score_empty["overall_score"] == 0
+
+    score_malformed = score_visibility({"questions": "invalid_type"}, diagnosis="invalid_type")
+    assert score_malformed["overall_score"] == 0
+

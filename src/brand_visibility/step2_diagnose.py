@@ -84,9 +84,9 @@ def run_diagnose(
         if not raw_html:
             raw_html = cached_html
 
-    print("\n------------------------------------------")
-    print("[2/4] SHOW WHY")
-    print("------------------------------------------")
+    print("\n------------------------------------------", file=sys.stderr)
+    print("[2/4] SHOW WHY", file=sys.stderr)
+    print("------------------------------------------", file=sys.stderr)
 
     extracted_text = extract_text(raw_html) if raw_html else ""
     diagnosis_payload = get_diagnosis(check_result, raw_text=extracted_text)
@@ -102,15 +102,15 @@ def run_diagnose(
         "reasons": diagnosis_payload.get("reasons", []),
     }
 
-    print(f"{full_diagnosis['plain_summary']}\n")
+    print(f"{full_diagnosis['plain_summary']}\n", file=sys.stderr)
     for r in full_diagnosis["reasons"]:
         rcode = r.get("reason_code", "")
         rdetail = r.get("detail", "")
-        print(f"Reason: {rcode}")
-        print(f"  -> {rdetail}")
+        print(f"Reason: {rcode}", file=sys.stderr)
+        print(f"  -> {rdetail}", file=sys.stderr)
 
     output_path = write_diagnosis(full_diagnosis, brand_id, brand_type=brand_type)
-    print(f"\nDiagnosis saved to: {output_path}")
+    print(f"\nDiagnosis saved to: {output_path}", file=sys.stderr)
 
     return full_diagnosis
 
@@ -123,4 +123,4 @@ if __name__ == "__main__":
         print("Set BRAND_ID to run directly.", file=sys.stderr)
         raise SystemExit(2)
     res = run_diagnose(brand_id, brand_type=brand_type)
-    print(f"Step 2 SHOW WHY completed successfully. Diagnosis ID: {res['diagnosis_id']}")
+    print(f"Step 2 SHOW WHY completed successfully. Diagnosis ID: {res['diagnosis_id']}", file=sys.stderr)

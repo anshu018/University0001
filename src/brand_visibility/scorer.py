@@ -12,7 +12,7 @@ from collections import Counter
 
 import yake
 
-NOISE_WORDS = {
+STRUCTURAL_NOISE = {
     "welcome", "notice", "started", "download", "downloads", "success", "stories",
     "events", "community", "foundation", "donate", "sponsors", "jobs", "news", "blog",
     "careers", "press", "official", "learn", "getting", "this", "that", "these", "those",
@@ -23,14 +23,11 @@ NOISE_WORDS = {
     "login", "search", "home", "items", "view", "link", "text", "main", "body", "title",
     "about", "contact", "free", "shipping", "returns", "order", "account", "checkout",
     "help", "support", "policy", "company", "whether", "easy", "would", "could", "should",
-    "their", "where", "which", "other", "first", "experienced", "user",
-    # Additional noise words (verbs, adverbs, web controls, promotional action words)
-    "earn", "online", "click", "make", "find", "show", "give", "take", "need", "want",
-    "more", "less", "just", "very", "also", "with", "from", "into", "onto", "your", "our",
-    "my", "us", "we", "you", "they", "them", "signup", "register", "join", "money",
-    "apply", "drive", "ride", "deliver", "downloading", "starting", "earning", "ordering",
-    "food", "restaurant", "delivery", "services", "solutions", "options", "platforms",
-    "products", "providers", "brands", "software", "technology", "business", "company",
+    "their", "where", "which", "other", "first", "experienced", "user", "earn", "online",
+    "click", "make", "find", "show", "give", "take", "need", "want", "more", "less",
+    "just", "very", "also", "with", "from", "into", "onto", "your", "our", "my", "us",
+    "we", "you", "they", "them", "signup", "register", "join", "money", "apply", "drive",
+    "ride", "deliver", "downloading", "starting", "earning", "ordering",
 }
 
 STOP_WORDS = {
@@ -43,17 +40,36 @@ STOP_WORDS = {
     "just", "don", "should", "now",
 }
 
+NOISE_WORDS = STRUCTURAL_NOISE
+
 
 def _is_valid_word(word: str) -> bool:
     wl = word.lower()
-    if len(wl) < 4 or len(wl) > 40:
+    if len(wl) < 3 or len(wl) > 40:
         return False
-    if wl in NOISE_WORDS or wl in STOP_WORDS:
+    if wl in STRUCTURAL_NOISE or wl in STOP_WORDS:
         return False
     if wl.isdigit():
         return False
-    if wl.endswith("ly") and len(wl) > 5:
+    return True
+
+
+def _is_valid_topic_phrase(phrase: str) -> bool:
+    """Return True if topic phrase contains meaningful content and is not pure web noise."""
+    if not phrase or not isinstance(phrase, str):
         return False
+    cleaned = phrase.strip()
+    if len(cleaned) < 3 or len(cleaned) > 50:
+        return False
+
+    words = [w.lower() for w in re.findall(r"\b\w+\b", cleaned)]
+    if not words:
+        return False
+
+    # Reject phrase if ALL constituent words are structural noise or stop words
+    if all(w in STRUCTURAL_NOISE or w in STOP_WORDS or w.isdigit() for w in words):
+        return False
+
     return True
 
 
@@ -62,9 +78,16 @@ def _extract_page_topics(text: str) -> list[str]:
     if not text or not isinstance(text, str):
         return []
 
+    # Clean raw HTML tags if present and truncate to first 20,000 characters
+    clean_text = re.sub(r"<[^>]+>", " ", text[:20000])
+    clean_text = re.sub(r"\s+", " ", clean_text).strip()
+
+    if not clean_text:
+        return []
+
     try:
-        kw_extractor = yake.KeywordExtractor(n=2, top=5)
-        keywords = kw_extractor.extract_keywords(text)
+        kw_extractor = yake.KeywordExtractor(n=2, top=10)
+        keywords = kw_extractor.extract_keywords(clean_text)
     except Exception:
         return []
 
@@ -74,7 +97,7 @@ def _extract_page_topics(text: str) -> list[str]:
         if not kw or not isinstance(kw, str):
             continue
         cleaned = kw.strip()
-        if not cleaned:
+        if not _is_valid_topic_phrase(cleaned):
             continue
         lowered = cleaned.lower()
         if lowered in seen_lower:
@@ -127,6 +150,9 @@ def score_visibility(check_result: dict, diagnosis: dict = None, persona: dict =
         check_result = {}
 
     questions = check_result.get("questions", [])
+    if not isinstance(questions, list):
+        questions = []
+
     total_evaluations = 0
     mentions_count = 0
     accurate_count = 0

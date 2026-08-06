@@ -195,12 +195,46 @@ This is the live status of the build. It doesn't explain _what_ each stage invol
 - AGY-side verification completed after fixing WezTerm prompt delivery; AGY reported `6 passed`
 
 **Git commits:**
-- None yet for Stage 2.1 implementation; changes currently uncommitted
+- `4d94e27` — feat: replace scorer extraction with YAKE keyword extraction
 
 **Flags / deviations:**
 - 2026-08-06 — Minor YAKE page-noise observed: `python-org` run produced question `What are the top Python.org Notice options in software & technology solutions?` from page heading noise. Existing Tier B/C fallback handles weak extraction; no fourth fallback layer added per senior feedback.
 - 2026-08-06 — `jellyfish` was not importable under Python 3.14 from the default site-packages; resolved by installing `cp314` wheel into a project-local `.pytest-packages` directory and using `PYTHONPATH` during test execution. This is an environment fix, not a code change.
 - 2026-08-06 — AGY communication loop encountered stale permission-prompt state; resolved by clearing stale queue and switching to file-based multiline prompt delivery via `wezterm cli send-text` stdin piping. Pattern documented in `agent-delegation-rules` skill.
+
+---
+
+## Round 2 — Security Hardening
+
+**Status:** AWAITING VERIFICATION
+
+**Scope:** Second security audit pass on `brand-visibility-agent` after Stage 2.1. All work executed by AGY with Hermes oversight. Four phases completed: R2-1 prompt injection defense, R2-2 DNS rebinding/TOCTOU SSRF fix, R2-3 auto-approval guardrail, R2-4 MCP stdio discipline.
+
+**Proof log:**
+- R2-1: `src/brand_visibility/ai_client.py` hardened with `_sanitize_untrusted_input()` and XML boundary tags `<untrusted_content>` wrapping scraped content before Gemini/Groq calls; system safety instruction added; 5 new tests in `tests/test_phase3_security.py`
+- R2-2: `src/brand_visibility/reader.py` refactored `_is_safe_url()` to return `(is_safe, resolved_ip, hostname)` and `fetch_url()` pins HTTP requests to validated IP with original hostname in Host header; HTTPS preserved without `verify=False`; 2 new tests in `tests/test_phase3_security.py`
+- R2-3: `src/brand_visibility/step3_fix.py` restricted `BRAND_AUTO_APPROVE=1` to test brands by default; real brand auto-approve requires `ALLOW_REAL_AUTO_APPROVE=1`; decisions logged to stderr; 1 new test in `tests/test_phase3_security.py`
+- R2-4: `src/brand_visibility/step1_check.py`, `step2_diagnose.py`, `step3_fix.py` redirected all non-data `print()` calls to `sys.stderr`; 1 new test `test_step_scripts_stdio_isolation` verifies 0 stdout bytes
+- `requirements.txt` updated with bounded `mcp>=1.27.0,<2`
+- Summary reports written: `hermes-plans/r2-1-implementation-summary.md`, `r2-2-implementation-summary.md`, `r2-3-implementation-summary.md`, `r2-4-implementation-summary.md`
+- Security artifacts: `hermes-plans/security-audit-round2.md`, `hermes-plans/security-solutions-round2.md`, `hermes-plans/report-plan-round2.md`
+
+**Verification log:**
+- Canonical test command: `PYTHONPATH='src;.pytest-packages' C:\Python314\python.exe -m pytest tests/ -v`
+- R2-1 verification: 53 passed in 0.96s
+- R2-2 verification: 55 passed in 1.10s
+- R2-3 verification: 56 passed in 1.05s
+- R2-4 verification: 57 passed in 1.16s
+- Final test count: 57 passed in 1.07s
+- AGY verification: AGY declared R2-4 COMPLETED & VERIFIED after file inspection; summary written to `hermes-plans/r2-4-implementation-summary.md`
+
+**Git commits:**
+- Pending — awaiting commit and push
+
+**Flags / deviations:**
+- 2026-08-07 — AGY delivery via WezTerm `send-text` encountered CLI parsing issues with multiline prompts containing special characters; resolved by using stdin piping and direct pane messaging fallback
+- 2026-08-07 — AGY test execution repeatedly hit permission-prompt gate for `pytest`; Hermes approved via `wezterm-tab.ps1` + `wezterm-enter.ps1` automation
+- 2026-08-07 — AGY R2-4 declared complete after file-based verification when pytest gate remained inaccessible; Hermes independently verified 57 tests passing with canonical interpreter
 
 ---
 

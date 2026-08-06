@@ -35,11 +35,11 @@ def run_prove(brand_id: str, brand_type: str = None, question: str | None = None
     before = ask_ai(question)
     after = ask_ai(question, brand_context=brand_context)
 
-    print(f"Question: {question}\n")
-    print("WITHOUT brand access (before):")
-    print(before)
-    print("\nWITH brand access (after):")
-    print(after)
+    print(f"Question: {question}\n", file=sys.stderr)
+    print("WITHOUT brand access (before):", file=sys.stderr)
+    print(before, file=sys.stderr)
+    print("\nWITH brand access (after):", file=sys.stderr)
+    print(after, file=sys.stderr)
 
     return {
         "brand_id": brand_id,

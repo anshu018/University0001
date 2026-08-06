@@ -54,8 +54,9 @@ def build_engine_queries(brand_text: str, questions: list = None, max_queries: i
                 queries.append(q_text.strip())
 
     if not queries and brand_text:
-        # Fallback to topic extraction from brand_text
-        words = [w for w in re.findall(r"\b[A-Za-z]{4,}\b", brand_text) if w.lower() not in ("with", "that", "this", "from", "have", "more")]
+        # Fallback to topic extraction from brand_text (bounded to first 10,000 chars)
+        sample_text = brand_text[:10000] if isinstance(brand_text, str) else ""
+        words = [w for w in re.findall(r"\b[A-Za-z]{4,}\b", sample_text) if w.lower() not in ("with", "that", "this", "from", "have", "more")]
         if words:
             topic = " ".join(words[:3])
             queries.append(f"best options for {topic}")

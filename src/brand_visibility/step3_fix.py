@@ -100,8 +100,8 @@ def generate_brand_files(brand_id: str, brand_type: str = None) -> dict:
     json_path.write_text(json.dumps(brand_info, indent=2) + "\n", encoding="utf-8")
     llms_path.write_text(_render_llms_txt(brand_info), encoding="utf-8")
 
-    print(f"Generated: {json_path}")
-    print(f"Generated: {llms_path}")
+    print(f"Generated: {json_path}", file=sys.stderr)
+    print(f"Generated: {llms_path}", file=sys.stderr)
     return brand_info
 
 
@@ -119,18 +119,34 @@ def approval_gate(brand_id: str, brand_type: str = None) -> dict:
     facts = extract_facts(raw_html, website_url=brand_record.get("website_url", "")) if raw_html else []
     brand_info = _default_brand_info(brand_record, facts)
 
-    print("\n=== APPROVAL REQUIRED ===")
-    print("This will be published and made reachable by AI agents via MCP.")
-    if os.environ.get("BRAND_AUTO_APPROVE") == "1":
-        approved = True
-        print("Auto-approved via BRAND_AUTO_APPROVE=1.")
+    print("\n=== APPROVAL REQUIRED ===", file=sys.stderr)
+    print("This will be published and made reachable by AI agents via MCP.", file=sys.stderr)
+
+    auto_approve_env = os.environ.get("BRAND_AUTO_APPROVE") == "1"
+    allow_real_auto = os.environ.get("ALLOW_REAL_AUTO_APPROVE") == "1"
+    record_brand_type = brand_record.get("brand_type") or brand_type or "test"
+
+    if auto_approve_env:
+        if record_brand_type == "real" and not allow_real_auto:
+            approved = False
+            print(
+                "SECURITY WARNING: BRAND_AUTO_APPROVE=1 ignored for real brand record. "
+                "Operator approval required or set ALLOW_REAL_AUTO_APPROVE=1.",
+                file=sys.stderr,
+            )
+        else:
+            approved = True
+            print(
+                f"Auto-approved via BRAND_AUTO_APPROVE=1 (brand_type: {record_brand_type}).",
+                file=sys.stderr,
+            )
     else:
         try:
             response = input(APPROVAL_PROMPT)
         except EOFError:
             response = ""
         approved = response.strip().upper() == "APPROVE"
-        print("Published." if approved else "Cancelled.")
+        print("Published." if approved else "Cancelled.", file=sys.stderr)
 
     if approved:
         brand_info["approved"] = True
@@ -177,4 +193,4 @@ if __name__ == "__main__":
         print("Set BRAND_ID to run directly.", file=sys.stderr)
         raise SystemExit(2)
     result = approval_gate(brand_id, brand_type=brand_type)
-    print(json.dumps(result, indent=2))
+    print(json.dumps(result, indent=2), file=sys.stderr)
